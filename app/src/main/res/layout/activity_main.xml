@@ -1,19 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/clMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:visibility="visible">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.MyApp.ActionBar"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:animateLayoutChanges="true"
+                android:background="@android:color/transparent"
+                android:contentInsetEnd="0dp"
+                android:contentInsetLeft="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetStart="0dp"
+                android:visibility="visible"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin">
+                <RelativeLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:id="@+id/rlBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/ivNavigation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/activity_margin"
+                            android:src="@drawable/ic_navigation"
+                            android:visibility="visible"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="@string/app_name"
+                            android:textColor="@color/text_color_white"
+                            android:textSize="@dimen/text_size_title"
+                            android:textStyle="bold"/>
 
-</android.support.constraint.ConstraintLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlList"
+            android:background="@color/app_background_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appBar"
+            android:visibility="visible">
+
+
+            <RelativeLayout
+                android:id="@+id/rlStatePopup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvStatePopup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"/>
+
+            </RelativeLayout>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rlStatePopup">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPropertyList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/appBar"
+                    android:paddingBottom="4dp"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlInternetConnection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/appBar"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:animateLayoutChanges="true"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivNoInternet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_no_internet"/>
+            <TextView
+                android:id="@+id/tvNoResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivNoInternet"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:gravity="center"
+                android:padding="@dimen/edittext_padding"
+                android:text="Oops.. No internet!"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_extra_large"
+                android:textStyle="bold"
+                android:visibility="visible"/>
+            <TextView
+                android:id="@+id/tvNoConnection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNoResult"
+                android:gravity="center"
+                android:padding="@dimen/activity_margin_extra_small"
+                android:text="Seems to be no internet connection.\n Please check your internet connection and try again"
+                android:textSize="@dimen/text_size_medium"/>
+
+
+            <TextView
+                android:id="@+id/tvRetry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNoConnection"
+                android:gravity="center"
+                android:padding="@dimen/activity_margin"
+                android:text="Retry"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlNoResultFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/appBar"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:animateLayoutChanges="true"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivNoResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_no_result"/>
+            <TextView
+                android:id="@+id/tvNoResultFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivNoResult"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:gravity="center"
+                android:padding="@dimen/edittext_padding"
+                android:text="Oops.. No result found!"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_extra_large"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tvNoResultFound2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNoResultFound"
+                android:gravity="center"
+                android:padding="@dimen/activity_margin_extra_small"
+                android:text="Looks like you have applied too many filters.\nPlease remove a filter(s) and try again."
+                android:textSize="@dimen/text_size_medium"/>
+
+
+            <TextView
+                android:id="@+id/tvResetFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNoResultFound2"
+                android:gravity="center"
+                android:padding="@dimen/activity_margin"
+                android:text="Reset Filter"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_margin_small"
+    card_view:cardCornerRadius="@dimen/cardview_default_radius"
+    card_view:cardElevation="@dimen/cardview_elevation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_margin_small"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/activity_margin_extra_small"
+            android:text="Coming soon..."
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/rlName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle">
+
+            <ImageView
+                android:id="@+id/ivName"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/activity_margin_extra_small"
+                android:src="@drawable/ic_location"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivName"
+                android:layout_toRightOf="@+id/ivName"
+                android:gravity="center_vertical"
+                android:text="Coming soon..."
+                android:textColor="@color/app_text_color_dark"
+                android:textSize="@dimen/text_size_small"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlName">
+
+            <ImageView
+                android:id="@+id/ivdate"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/activity_margin_extra_small"
+                android:src="@drawable/ic_date"/>
+
+            <TextView
+                android:id="@+id/tvStartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivdate"
+                android:layout_toRightOf="@+id/ivdate"
+                android:text="12/07/2017"
+                android:textColor="@color/app_text_color_dark"
+                android:textSize="@dimen/text_size_small"/>
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_margin_small"
+                android:layout_marginRight="@dimen/activity_margin_small"
+                android:layout_toEndOf="@+id/tvStartDate"
+                android:layout_toRightOf="@+id/tvStartDate"
+                android:text="-"
+                android:textColor="@color/app_text_color_dark"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlDate"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/ivTime"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/activity_margin_extra_small"
+                android:src="@drawable/ic_time"/>
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivTime"
+                android:layout_toRightOf="@+id/ivTime"
+                android:text="nbbbnmm"
+                android:textColor="@color/app_text_color_dark"
+                android:textSize="@dimen/text_size_small"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlVenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlTime"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivLocation"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/activity_margin_extra_small"
+                android:src="@drawable/ic_location"/>
+
+            <TextView
+                android:id="@+id/tvVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/ivLocation"
+                android:layout_toRightOf="@+id/ivLocation"
+                android:text="Coming soon..."
+                android:textColor="@color/app_text_color_dark"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="visible"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tvScheduleATour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlTime"
+            android:layout_marginTop="@dimen/activity_margin_small"
+            android:background="@drawable/rounded_button"
+            android:gravity="center"
+            android:padding="@dimen/activity_margin_small"
+            android:text="Schedule"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

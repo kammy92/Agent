@@ -1,3 +1,232 @@
 <resources>
     <string name="app_name">InsiderAgent</string>
+
+    <string name="please_enter_name">Please enter Name</string>
+    <string name="please_enter_full_name">Please enter Name</string>
+    <string name="please_enter_email">Please enter Email</string>
+    <string name="please_enter_mobile">Please enter Mobile</string>
+    <string name="please_enter_valid_email">Please enter valid Email</string>
+    <string name="please_enter_message">Please enter message</string>
+    <string name="please_enter_password">Please enter password</string>
+    <string name="please_enter_old_password">Please enter old password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
+    <string name="please_enter_new_password">Please enter new confirm password</string>
+    <string name="password_did_not_match">Password did\'nt match</string>
+    <string name="please_enter_valid_mobile">Please enter valid Mobile</string>
+    <string name="please_select_visitor_type">Please select visitor type</string>
+    <string name="please_select_state_type">Please select state type</string>
+    <string name="please_select_home_type">Please select home type</string>
+    <string name="otp_didnt_match">OTP didn\'t match</string>
+    <string name="activity_login_text_i_agree">You agree to our Term and Condition and Privacy Policy</string>
+
+
+    <string name="activity_contact_hint_full_name">Full Name</string>
+    <string name="activity_contact_hint_email">Email Address</string>
+    <string name="activity_contact_hint_mobile">Mobile Number</string>
+    <string name="activity_contact_hint_message">Message</string>
+    <string name="activity_contact_button_submit">SUBMIT</string>
+
+
+    <string name="activity_sign_up_hint_full_name">Full Name</string>
+    <string name="activity_sign_up_email">Email Address</string>
+    <string name="activity_sign_up_mobile">Mobile Number</string>
+    <string name="activity_sign_up_button_submit">SIGN UP</string>
+    <string name="activity_sign_up_enter_password">Password</string>
+    <string name="activity_sign_up_confirm_password">Confirm Password</string>
+
+
+    <string name="activity_sign_in_hint_email">Email Address</string>
+    <string name="activity_sign_in_hint_password">Password</string>
+    <string name="activity_sign_in_button_submit">SIGN IN</string>
+    <string name="activity_sign_in_text_forgot_password">Forgot Password ? </string>
+    <string name="activity_sign_in_text_signup">Sign Up ? </string>
+
+
+
+    <string name="activity_forgot_password_hint_email">Email Address</string>
+    <string name="activity_forgot_password_text_submit">SUBMIT</string>
+    <string name="activity_forgot_password_title">Forgot Password</string>
+
+
+    <string name="activity_change_password_hint_old_password">Old Password</string>
+    <string name="activity_change_password_hint_new_password">New Password</string>
+    <string name="activity_change_password_hint_confirm_password">Confirm Password</string>
+    <string name="activity_change_password_text_update_password">Update Password</string>
+
+
+    <string name="dialog_forgot_password_content">Enter the Email Address</string>
+    <string name="dialog_forgot_password_submit">Submit</string>
+    <string name="dialog_forgot_password_cancel">Cancel</string>
+
+
+
+    <string name="activity_edit_profile_hint_first_name">First Name</string>
+    <string name="activity_edit_profile_hint_last_name">Last Name</string>
+    <string name="activity_edit_profile_hint_email">Email Address</string>
+    <string name="activity_edit_profile_hint_mobile">Mobile Number</string>
+    <string name="activity_edit_profile_ques1">In which state(s) do you want to buy?</string>
+    <string name="activity_edit_profile_cb_text_co">CO</string>
+    <string name="activity_edit_profile_cb_text_wa">WA</string>
+    <string name="activity_edit_profile_ques2">I will buy properties in this price range(s). Pick all that apply:</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="progress_dialog_text_loading">Loading&#8230;</string>
+    <string name="progress_dialog_text_generating_survey">Generating Survey&#8230;</string>
+    <string name="progress_dialog_text_logging_out">Logging Out&#8230;</string>
+    <string name="progress_dialog_text_logging_in">Logging In&#8230;</string>
+    <string name="progress_dialog_text_please_wait">Please wait&#8230;</string>
+    <string name="progress_dialog_text_sending_request">Sending Request&#8230;</string>
+    <string name="progress_dialog_text_submitting_responses">Submitting Responses&#8230;</string>
+    <string name="progress_dialog_text_initializing">Initializing Application&#8230;</string>
+
+    <string name="snackbar_text_no_internet_connection_available">No Internet Connection available
+    </string>
+    <string name="snackbar_text_error_occurred">Error Occurred</string>
+    <string name="snackbar_text_exception_occurred">Exception Occurred</string>
+    <string name="snackbar_text_invalid_access_pin">Invalid Access PIN</string>
+
+    <string name="snackbar_action_go_to_settings">GO TO SETTINGS</string>
+    <string name="snackbar_action_dismiss">DISMISS</string>
+    <string name="snackbar_action_retry">RETRY</string>
+
+    <string name="snackbar_action_undo">UNDO</string>
+
+
+    <string name="dialog_text_new_version_available">New version of the application is available.Please update</string>
+
+
+    <!-- Karman -->
+    <string name="activity_about_us_back_button">Home</string>
+    <string name="activity_about_us_title">About Us</string>
+    <string name="activity_about_us_text_1" formatted="false">ClearSale\'s parent company,
+        HomeTrust, was founded in 2001 as a locally owned and operated real estate investment
+        business run by a husband/wife team. And 14 years later that’s still what we are. Although
+        we have now done over 300 buy/renovate/sell projects (what we call fix &amp;flips), have a
+        multi-million dollar single family rental portfolio that is growing quickly,and a wholesale
+        business, we are at our core a small family run business that strives to create fantastic
+        value for our customers every day. The BBB likes us too: Check out our A+ Rating from the
+        Denver Better Business Bureau. Click here to view.
+    </string>
+    <string name="activity_about_us_text_2" formatted="false">We do tens of thousands of dollars of
+        marketing each and every month, utilizing leading edge techniques, just to bring you the
+        best wholesale deals in Metro Denver &amp; Northern Colorado.To get our full list of
+        wholesale priced investment properties…
+    </string>
+    <string name="activity_about_us_text_3" formatted="false">Click here to join our Preferred
+        Buyers List
+    </string>
+    <string name="activity_about_us_text_4" formatted="false">Once you register you’ll be taken to
+        our Metro Denver &amp; Northern Colorado investment properties page. Whenever we get new
+        properties in we’ll put them up on that page and notify you by email.
+    </string>
+    <string name="activity_about_us_text_5" formatted="false">Why Should You Work With Us?</string>
+    <string name="activity_about_us_text_6" formatted="false">We\'ve already done the work and made
+        the investments to generate a consistent stream of deeply discounted deals. Because we come
+        across so many great deals (30% – 50% below market value) we simply can’t buy and keep all
+        of these properties ourselves
+    </string>
+    <string name="activity_about_us_text_7" formatted="false">Real Estate Investors Looking For
+        Rentals or Rehabs
+    </string>
+    <string name="activity_about_us_text_8" formatted="false">If you\'re a real estate investor and
+        are looking for great rental properties that will cash flow or distressed properties to
+        rehab and resell… have us find those properties for you. Just tell us what your buying
+        criteria is, and we’ll custom search for properties for you that fit your criteria. The
+        beauty of it is you never pay for our service… we make our money by adding on a modest fee
+        once you close on one of our properties.
+    </string>
+    <string name="activity_about_us_text_9" formatted="false">in the end, we\'ve gotten to where we
+        are today because we’ve focused on becoming really good at finding great deals, marketing,
+        and passing those deals off to people like you at a huge discount. That’s all we do. You can
+        rest assured that we are a great company to work with… and we’re just real people just like
+        you.
+    </string>
+    <string name="activity_about_us_text_10" formatted="false">The Acquisitions Team,</string>
+    <string name="activity_about_us_text_11" formatted="false">ClearSale &amp; HomeTrust</string>
+    <string name="activity_about_us_text_12" formatted="false">Call Us Today! 303-816-3170</string>
+
+
+    <string name="activity_testimonial_text_1">HAPPY INVESTORS</string>
+    <string name="activity_testimonial_text_2">Hear from people who have purchased deals from us.
+    </string>
+
+
+    <string name="activity_edit_profile_ques3">I Will Do This Fix (Pick one):</string>
+
+
+    <string name="activity_contact_us_back_button">Home</string>
+    <string name="activity_contact_us_title">Contact Us</string>
+
+    <string name="activity_faq_back_button">Home</string>
+    <string name="activity_faq_title">FAQs</string>
+
+    <string name="activity_my_appointment_back_button">Home</string>
+    <string name="activity_my_appointment_title">My Scheduled Access</string>
+
+    <string name="activity_testimonial_back_button">Home</string>
+    <string name="activity_testimonial_title">Testimonials</string>
+
+    <string name="activity_how_it_works_back_button">Home</string>
+    <string name="activity_how_it_works_title">How It Works</string>
+
+    <string name="activity_my_favourite_back_button">Home</string>
+    <string name="activity_my_favourite_title">My Favorite</string>
+
+    <string name="activity_my_profile_back_button">Home</string>
+    <string name="activity_my_profile_title">My Profile</string>
+
+    <string name="activity_change_password_back_button">Home</string>
+    <string name="activity_change_password_title">Change Password</string>
+
+
+    <string name="activity_filter_back_button">Cancel</string>
+    <string name="activity_filter_title">Filters</string>
+
+
+    <string name="activity_property_images_back_button">Back</string>
+    <string name="activity_property_images_title"></string>
+
+    <string name="activity_property_detail_back_button">Back</string>
+    <string name="activity_property_detail_title"></string>
+
+
+    <string name="activity_main_title">HomeTrust</string>
+
+
+    <string name="facebook_app_id">676237775859807</string>
+    <string name="fb_login_protocol_scheme">fb431008303943529</string>
+
+
+    <string name="activity_property_detail_text_best_offer">Your Best Offer :</string>
+    <string name="activity_property_detail_text_offer_detail">Offer Details :</string>
+    <string name="activity_property_detail_text_attended_access">I have attended access</string>
+    <string name="activity_property_detail_hint_usd">USD</string>
+    <string name="activity_property_detail_text_note">Note: High offer is the most important, but
+        not the only, factor in determining who will be purchasing the property. The company will,
+        at any time of the Company choosing, make the final selection of who will be buying the
+        property.
+    </string>
+    <string name="activity_property_detail_text_offer_detail2">Note: Please send the price that makes it a
+        buy for you. This is a binding offer and if you are the accepted offer you must be prepared
+        to wire the $8,000 nonrefundable deposit and return the contract within 4 business hours and
+        you confirm you have had the opportunity for access and you accept the property as is where
+        is with possession and closing terms as described below.
+    </string>
+    <string name="dialog_appointment_comment">Buyer Comments</string>
+    <string name="dialog_appointment_user">Max # of People at Access</string>
+    <string name="dialog_appointment_address">Buyer Address</string>
+    <string name="dialog_appointment_hint_comment">Comments</string>
+
+
 </resources>
