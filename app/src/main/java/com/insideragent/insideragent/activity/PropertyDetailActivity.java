@@ -89,7 +89,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     boolean isFavourite;
     ImageView ivFavourite;
     ViewPagerAdapter viewPagerAdapter;
-    ImageView ivVideo;
+  //  ImageView ivVideo;
     SharedPreferences.Editor editor;
     SliderLayout slider;
     CollapsingToolbarLayout collapsingToolbarLayout;
@@ -179,7 +179,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById (R.id.viewpager);
         tvSliderPosition = (TextView) findViewById (R.id.tvSliderPosition);
         fabMaps = (FloatingActionButton) findViewById (R.id.fabMap);
-        ivVideo = (ImageView) findViewById (R.id.ivVideo);
+      //  ivVideo = (ImageView) findViewById (R.id.ivVideo);
         appBar = (AppBarLayout) findViewById (R.id.appBar);
         tvTitle = (TextView) findViewById (R.id.tvTitle);
     }
@@ -270,27 +270,14 @@ public class PropertyDetailActivity extends AppCompatActivity {
             }
         });
     
-        ivFavourite.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick (View v) {
-                if (isFavourite) {
-                    isFavourite = false;
-                    ivFavourite.setImageResource (R.drawable.ic_heart);
-                    updateFavouriteStatus (false, property_id);
-                } else {
-                    isFavourite = true;
-                    ivFavourite.setImageResource (R.drawable.ic_heart_filled);
-                    updateFavouriteStatus (true, property_id);
-                }
-            }
-        });
+
     
-        ivVideo.setOnClickListener (new View.OnClickListener () {
+     /*   ivVideo.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View v) {
                 startActivity (new Intent (Intent.ACTION_VIEW, Uri.parse (videoList.get (0))));
             }
-        });
+        });*/
     }
     
     private void initSlider () {
@@ -423,8 +410,8 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
                     params.put (AppConfigTags.PROPERTY_ID, String.valueOf (property_id));
-                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (PropertyDetailActivity.this, BuyerDetailsPref.BUYER_ID)));
-                    params.put (AppConfigTags.TYPE, "property_detail");
+                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_ID)));
+                    params.put (AppConfigTags.TYPE, "property_detail_insider");
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }
@@ -517,68 +504,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
     }
     
-    public void updateFavouriteStatus (final boolean favourite, final int property_id) {
-        if (NetworkConnection.isNetworkAvailable (this)) {
-            Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_TESTIMONIALS, true);
-            StringRequest strRequest1 = new StringRequest(Request.Method.POST, AppConfigURL.URL_TESTIMONIALS,
-                    new com.android.volley.Response.Listener<String> () {
-                        @Override
-                        public void onResponse (String response) {
-                            Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
-                            if (response != null) {
-                                try {
-                                    JSONObject jsonObj = new JSONObject (response);
-                                    boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
-                                    String message = jsonObj.getString (AppConfigTags.MESSAGE);
-                                    if (! error) {
-                                        if (favourite) {
-                                            
-                                        } else {
-                                        }
-                                    } else {
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace ();
-                                }
-                            } else {
-                                Utils.showLog (Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
-                            }
-                        }
-                    },
-                    new com.android.volley.Response.ErrorListener () {
-                        @Override
-                        public void onErrorResponse (VolleyError error) {
-                            Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams () throws AuthFailureError {
-                    BuyerDetailsPref buyerDetailsPref = BuyerDetailsPref.getInstance ();
-                    Map<String, String> params = new Hashtable<String, String> ();
-                    params.put (AppConfigTags.TYPE, "property_favourite");
-                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (PropertyDetailActivity.this, BuyerDetailsPref.BUYER_ID)));
-                    params.put (AppConfigTags.PROPERTY_ID, String.valueOf (property_id));
-                    if (favourite) {
-                        params.put (AppConfigTags.IS_FAVOURITE, String.valueOf (1));
-                    } else {
-                        params.put (AppConfigTags.IS_FAVOURITE, String.valueOf (0));
-                    }
-                    Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
-                    return params;
-                }
-                
-                @Override
-                public Map<String, String> getHeaders () throws AuthFailureError {
-                    Map<String, String> params = new HashMap<> ();
-                    params.put (AppConfigTags.HEADER_API_KEY, Constants.api_key);
-                    Utils.showLog (Log.INFO, AppConfigTags.HEADERS_SENT_TO_THE_SERVER, "" + params, false);
-                    return params;
-                }
-            };
-            Utils.sendRequest (strRequest1, 60);
-        } else {
-        }
-    }
+
     
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<> ();
@@ -664,7 +590,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     });
                 }
     
-                for (int i = 0; i < jsonObj.getJSONArray (AppConfigTags.PROPERTY_VIDEOS).length (); i++) {
+               /* for (int i = 0; i < jsonObj.getJSONArray (AppConfigTags.PROPERTY_VIDEOS).length (); i++) {
                     videoList.add (jsonObj.getJSONArray (AppConfigTags.PROPERTY_VIDEOS).getJSONObject (i).getString (AppConfigTags.VIDEO));
                     runOnUiThread (new Runnable () {
                         @Override
@@ -672,7 +598,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                             ivVideo.setVisibility (View.VISIBLE);
                         }
                     });
-                }
+                }*/
     
             } catch (Exception e) {
                 e.printStackTrace ();

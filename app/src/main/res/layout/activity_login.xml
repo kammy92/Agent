@@ -1,4 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/clMain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/text_color_white">
+
+    <RelativeLayout
+        android:id="@+id/rlMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="@dimen/activity_margin"
+            android:src="@drawable/app_logo"
+            />
+
+        <LinearLayout
+            android:id="@+id/llFields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/activity_margin_extra_large"
+            android:layout_marginRight="@dimen/activity_margin_extra_large"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/login_card_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_margin"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/activity_margin"
+                android:gravity="center"
+                android:padding="@dimen/activity_margin_small"
+                android:text="INSIDER AGENT"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email ID"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_background"
+                android:drawablePadding="@dimen/activity_margin_small"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:padding="@dimen/edittext_padding"
+                android:textColorHint="@color/hint_text_color"
+                android:textSize="@dimen/text_size_medium"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:text="Password"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_background"
+                    android:drawablePadding="@dimen/activity_margin_small"
+                    android:inputType="textPassword"
+                    android:lines="1"
+                    android:padding="@dimen/edittext_padding"
+                    android:textColorHint="@color/hint_text_color"
+                    android:textSize="@dimen/text_size_medium"/>
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tvSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_margin"
+                android:layout_marginRight="@dimen/activity_margin"
+                android:layout_marginTop="@dimen/activity_margin"
+                android:background="@drawable/rounded_button"
+                android:elevation="@dimen/button_elevation"
+                android:gravity="center"
+                android:padding="@dimen/button_padding"
+                android:text="@string/activity_sign_in_button_submit"
+                android:textColor="@color/text_color_white"
+                android:textSize="@dimen/text_size_extra_large"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,7 +135,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/text_color_white"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:visibility="gone">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,8 +169,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/activity_margin">
 
             <EditText
                 android:id="@+id/etEmail"
@@ -94,3 +225,4 @@
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
+-->

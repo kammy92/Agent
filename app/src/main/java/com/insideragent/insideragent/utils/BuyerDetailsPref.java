@@ -20,6 +20,14 @@ public class BuyerDetailsPref {
     public static String PROFILE_PRICE_RANGE = "profile_price_range";
     public static String ABOUT_US = "about_us";
     public static String ACTIVE_SESSION = "active_session";
+
+
+    public static String BUYER_USERNAME = "buyer_username";
+    public static String LOGIN_TYPE = "login_type";
+    public static String INSIDER_ID = "insider_id";
+    public static String INSIDER_NAME = "insider_name";
+    public static String INSIDER_EMAIL = "insider_email";
+    public static String INSIDER_MOBILE = "insider_mobile";
     
     
     public static String FACE_PAGE_URL = "facebook_page_url";

@@ -137,16 +137,15 @@ public class MainActivity extends AppCompatActivity {
         initData();
         initListener();
         initDrawer();
-
         isLogin();
 //        getAllProperties ();
-        initApplication();
+        //   initApplication();
         checkPermissions();
         this.savedInstanceState = savedInstanceState;
     }
 
     private void isLogin() {
-        if (buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.BUYER_ID) == 0) {
+        if (buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.INSIDER_ID) == 0) {
             Intent myIntent = new Intent(this, LoginActivity.class);
             startActivity(myIntent);
       /*  } else if (buyerDetailsPref.getIntPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATUS) == 0) {
@@ -154,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity (myIntent);
         }*/
         }
-        if (buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.BUYER_ID) == 0)
+        if (buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.INSIDER_ID) == 0)
             finish();
     }
 
@@ -300,40 +299,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void checkPermissions () {
+    public void checkPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission (Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
-                    checkSelfPermission (Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions (new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MainActivity.PERMISSION_REQUEST_CODE);
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                    checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MainActivity.PERMISSION_REQUEST_CODE);
             }
         }
     }
 
     @Override
     @TargetApi(23)
-    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult (requestCode, permissions, grantResults);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
             for (int i = 0, len = permissions.length; i < len; i++) {
                 String permission = permissions[i];
                 if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                    boolean showRationale = shouldShowRequestPermissionRationale (permission);
-                    if (! showRationale) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder (MainActivity.this);
-                        builder.setMessage ("Permission are required please enable them on the App Setting page")
-                                .setCancelable (false)
-                                .setPositiveButton ("OK", new DialogInterface.OnClickListener () {
-                                    public void onClick (DialogInterface dialog, int id) {
-                                        dialog.dismiss ();
-                                        Intent intent = new Intent (Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                                Uri.fromParts ("package", getPackageName (), null));
-                                        startActivity (intent);
+                    boolean showRationale = shouldShowRequestPermissionRationale(permission);
+                    if (!showRationale) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("Permission are required please enable them on the App Setting page")
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                                Uri.fromParts("package", getPackageName(), null));
+                                        startActivity(intent);
                                     }
                                 });
-                        AlertDialog alert = builder.create ();
-                        alert.show ();
-                    } else if (Manifest.permission.ACCESS_FINE_LOCATION.equals (permission)) {
-                    } else if (Manifest.permission.ACCESS_COARSE_LOCATION.equals (permission)) {
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    } else if (Manifest.permission.ACCESS_FINE_LOCATION.equals(permission)) {
+                    } else if (Manifest.permission.ACCESS_COARSE_LOCATION.equals(permission)) {
                     }
                 }
             }
@@ -378,389 +377,316 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing (false);
     }
     */
-    private void getAllProperties () {
-        if (NetworkConnection.isNetworkAvailable (MainActivity.this)) {
-            Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_LIST, true);
-            StringRequest strRequest1 = new StringRequest (Request.Method.POST, AppConfigURL.URL_PROPERTY_LIST,
-                    new com.android.volley.Response.Listener<String> () {
+    private void getAllProperties() {
+        if (NetworkConnection.isNetworkAvailable(MainActivity.this)) {
+            Utils.showLog(Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_LIST, true);
+            StringRequest strRequest1 = new StringRequest(Request.Method.POST, AppConfigURL.URL_PROPERTY_LIST,
+                    new com.android.volley.Response.Listener<String>() {
                         @Override
-                        public void onResponse (String response) {
-                            propertyList.clear ();
-                            Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
+                        public void onResponse(String response) {
+                            propertyList.clear();
+                            Utils.showLog(Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
                             if (response != null) {
                                 try {
-                                    rlInternetConnection.setVisibility (View.GONE);
-                                    rlList.setVisibility (View.VISIBLE);
-                                    rlNoResultFound.setVisibility (View.GONE);
+                                    rlInternetConnection.setVisibility(View.GONE);
+                                    rlList.setVisibility(View.VISIBLE);
+                                    rlNoResultFound.setVisibility(View.GONE);
 
-                                    JSONObject jsonObj = new JSONObject (response);
-                                    boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
-                                    String message = jsonObj.getString (AppConfigTags.MESSAGE);
-                                    String state_list = jsonObj.getString (AppConfigTags.STATE_LIST);
-                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.STATE_LIST, state_list);
-                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATE, jsonObj.getString (AppConfigTags.PROFILE_STATE));
-                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.FACE_PAGE_URL, jsonObj.getString (AppConfigTags.FACE_PAGE_URL));
-                                    buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.FACE_PAGE_NAME, jsonObj.getString (AppConfigTags.FACE_PAGE_NAME));
-
-                                    if (jsonObj.getString (AppConfigTags.STATE_POPUP).trim ().length () > 0) {
-                                        if (! buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.ACTIVE_SESSION).equalsIgnoreCase (currentDay)) {
-                                            new MaterialDialog.Builder (MainActivity.this)
-                                                    .content (jsonObj.getString (AppConfigTags.STATE_POPUP))
-                                                    .positiveText ("OK")
-                                                    .neutralText ("EDIT PROFILE")
-                                                    .typeface (SetTypeFace.getTypeface (MainActivity.this), SetTypeFace.getTypeface (MainActivity.this))
-                                                    .onPositive (new MaterialDialog.SingleButtonCallback () {
-                                                                     @Override
-                                                                     public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                                         currentDay = new SimpleDateFormat ("dd/MM/yyyy", Locale.getDefault ()).format (Calendar.getInstance ().getTime ());
-                                                                         buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ACTIVE_SESSION, currentDay);
-                                                                         dialog.dismiss ();
-
-                                                                     }
-                                                                 }
-                                                    )
-                                                    .onNeutral (new MaterialDialog.SingleButtonCallback () {
-                                                        @Override
-                                                        public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                            currentDay = new SimpleDateFormat ("dd/MM/yyyy", Locale.getDefault ()).format (Calendar.getInstance ().getTime ());
-                                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ACTIVE_SESSION, currentDay);
-                                                            dialog.dismiss ();
-                                                           // Intent intent4 = new Intent (MainActivity.this, MyProfileActivity.class);
-                                                            //startActivity (intent4);
-                                                           // overridePendingTransition (R.anim.slide_in_up, R.anim.slide_out_up);
-                                                        }
-                                                    })
-                                                    .show ();
-                                            // }
-                                        }
-                                    }
-
-                                    if (! error) {
+                                    JSONObject jsonObj = new JSONObject(response);
+                                    boolean error = jsonObj.getBoolean(AppConfigTags.ERROR);
+                                    String message = jsonObj.getString(AppConfigTags.MESSAGE);
+                                    if (!error) {
                                         buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ABOUT_US, jsonObj.getString (AppConfigTags.ABOUT_US));
 
-                                        JSONArray jsonArrayCities = jsonObj.getJSONArray (AppConfigTags.CITIES);
-                                        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, jsonArrayCities.toString ());
+                                        JSONArray jsonArrayProperty = jsonObj.getJSONArray(AppConfigTags.PROPERTIES);
+                                        for (int i = 0; i < jsonArrayProperty.length(); i++) {
+                                            JSONObject jsonObjectProperty = jsonArrayProperty.getJSONObject(i);
+                                            Property property = new Property(
+                                                    jsonObjectProperty.getInt(AppConfigTags.PROPERTY_ID),
+                                                    jsonObjectProperty.getInt(AppConfigTags.PROPERTY_STATUS),
+                                                    jsonObjectProperty.getString(AppConfigTags.PROPERTY_PRICE),
+                                                    jsonObjectProperty.getString(AppConfigTags.PROPERTY_BEDROOMS),
+                                                    jsonObjectProperty.getString(AppConfigTags.PROPERTY_BATHROOMS),
+                                                    jsonObjectProperty.getString(AppConfigTags.PROPERTY_AREA),
+                                                    jsonObjectProperty.getString(AppConfigTags.PROPERTY_BUILT_YEAR),
+                                                    jsonObjectProperty.getString(AppConfigTags.PROPERTY_ADDRESS),
+                                                    jsonObjectProperty.getString(AppConfigTags.PROPERTY_CITY),
+                                                    jsonObjectProperty.getBoolean(AppConfigTags.PROPERTY_IS_OFFER), false);
 
-                                        JSONArray jsonArrayProperty = jsonObj.getJSONArray (AppConfigTags.PROPERTIES);
-                                        for (int i = 0; i < jsonArrayProperty.length (); i++) {
-                                            JSONObject jsonObjectProperty = jsonArrayProperty.getJSONObject (i);
-                                            Property property = new Property (
-                                                    jsonObjectProperty.getInt (AppConfigTags.PROPERTY_ID),
-                                                    jsonObjectProperty.getInt (AppConfigTags.PROPERTY_STATUS),
-                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_PRICE),
-                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_BEDROOMS),
-                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_BATHROOMS),
-                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_AREA),
-                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_BUILT_YEAR),
-                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_ADDRESS),
-                                                    jsonObjectProperty.getString (AppConfigTags.PROPERTY_CITY),
-                                                    jsonObjectProperty.getBoolean (AppConfigTags.PROPERTY_IS_OFFER),
-                                                    jsonObjectProperty.getBoolean (AppConfigTags.PROPERTY_IS_FAVOURITE));
+                                            JSONArray jsonArrayPropertyImages = jsonObjectProperty.getJSONArray(AppConfigTags.PROPERTY_IMAGES);
+                                            ArrayList<String> propertyImages = new ArrayList<>();
 
-                                            JSONArray jsonArrayPropertyImages = jsonObjectProperty.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
-                                            ArrayList<String> propertyImages = new ArrayList<> ();
-
-                                            for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
-                                                JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
-                                                propertyImages.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
-                                                property.setImageList (propertyImages);
+                                            for (int j = 0; j < jsonArrayPropertyImages.length(); j++) {
+                                                JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject(j);
+                                                propertyImages.add(jsonObjectImages.getString(AppConfigTags.PROPERTY_IMAGE));
+                                                property.setImageList(propertyImages);
                                             }
-                                            propertyList.add (i, property);
+                                            propertyList.add(i, property);
                                         }
 
-                                        propertyAdapter.notifyDataSetChanged ();
+                                        propertyAdapter.notifyDataSetChanged();
 
-                                        if (jsonArrayProperty.length () > 0) {
-                                            if (filterDetailsPref.getBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED))
-                                                rlNoResultFound.setVisibility (View.GONE);
-                                            swipeRefreshLayout.setRefreshing (false);
+                                        if (jsonArrayProperty.length() > 0) {
+                                            if (filterDetailsPref.getBooleanPref(MainActivity.this, FilterDetailsPref.FILTER_APPLIED))
+                                                rlNoResultFound.setVisibility(View.GONE);
+                                            swipeRefreshLayout.setRefreshing(false);
                                         }
                                     } else {
-                                        JSONArray jsonArrayCities = jsonObj.getJSONArray (AppConfigTags.CITIES);
-                                        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES_JSON, jsonArrayCities.toString ());
 
 
-                                        Utils.showSnackBar (MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
-                                        if (message.equalsIgnoreCase ("no property available"))
-                                            rlNoResultFound.setVisibility (View.VISIBLE);
+                                        Utils.showSnackBar(MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
+                                        if (message.equalsIgnoreCase("no property available"))
+                                            rlNoResultFound.setVisibility(View.VISIBLE);
                                         else
-                                            rlNoResultFound.setVisibility (View.GONE);
+                                            rlNoResultFound.setVisibility(View.GONE);
                                     }
                                 } catch (Exception e) {
-                                    Utils.showSnackBar (MainActivity.this, clMain, getResources ().getString (R.string.snackbar_text_exception_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
-                                    e.printStackTrace ();
+                                    Utils.showSnackBar(MainActivity.this, clMain, getResources().getString(R.string.snackbar_text_exception_occurred), Snackbar.LENGTH_LONG, getResources().getString(R.string.snackbar_action_dismiss), null);
+                                    e.printStackTrace();
                                 }
                             } else {
-                                Utils.showSnackBar (MainActivity.this, clMain, getResources ().getString (R.string.snackbar_text_error_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
-                                Utils.showLog (Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
+                                Utils.showSnackBar(MainActivity.this, clMain, getResources().getString(R.string.snackbar_text_error_occurred), Snackbar.LENGTH_LONG, getResources().getString(R.string.snackbar_action_dismiss), null);
+                                Utils.showLog(Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
                             }
-                            swipeRefreshLayout.setRefreshing (false);
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                     },
-                    new com.android.volley.Response.ErrorListener () {
+                    new com.android.volley.Response.ErrorListener() {
                         @Override
-                        public void onErrorResponse (VolleyError error) {
-                            swipeRefreshLayout.setRefreshing (false);
-                            Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
-                            Utils.showSnackBar (MainActivity.this, clMain, getResources ().getString (R.string.snackbar_text_error_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
+                        public void onErrorResponse(VolleyError error) {
+                            swipeRefreshLayout.setRefreshing(false);
+                            Utils.showLog(Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString(), true);
+                            Utils.showSnackBar(MainActivity.this, clMain, getResources().getString(R.string.snackbar_text_error_occurred), Snackbar.LENGTH_LONG, getResources().getString(R.string.snackbar_action_dismiss), null);
                         }
                     }) {
                 @Override
-                protected Map<String, String> getParams () throws AuthFailureError {
+                protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String>();
-                    params.put (AppConfigTags.TYPE, "property_list");
-                    params.put (AppConfigTags.DEVICE_TYPE, "ANDROID");
-                    params.put (AppConfigTags.FIREBASE_ID, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_FIREBASE_ID));
-                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (MainActivity.this, BuyerDetailsPref.BUYER_ID)));
-                    params.put (AppConfigTags.FILTER, String.valueOf (filterDetailsPref.getBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED)));
-                    if (filterDetailsPref.getBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED)) {
-                        params.put (AppConfigTags.FILTER_BEDROOMS, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_BEDROOMS));
-                        params.put (AppConfigTags.FILTER_BATHROOMS, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_BATHROOMS));
-                        params.put (AppConfigTags.FILTER_STATUS, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_STATUS));
-                        params.put (AppConfigTags.FILTER_CITIES, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_CITIES));
-                        params.put (AppConfigTags.FILTER_PRICE_MIN, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_PRICE_MIN));
-                        params.put (AppConfigTags.FILTER_PRICE_MAX, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_PRICE_MAX));
-                        params.put (AppConfigTags.FILTER_LOCATION, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_LOCATION));
-                        params.put (AppConfigTags.FILTER_LOCATION_LATITUDE, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_LOCATION_LATITUDE));
-                        params.put (AppConfigTags.FILTER_LOCATION_LONGITUDE, filterDetailsPref.getStringPref (MainActivity.this, FilterDetailsPref.FILTER_LOCATION_LONGITUDE));
-                    }
-                    Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
+                    params.put(AppConfigTags.TYPE, "property_list_insider");
+                    params.put(AppConfigTags.DEVICE_TYPE, "ANDROID");
+                    params.put(AppConfigTags.INSIDER_ID, String.valueOf(buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.INSIDER_ID)));
+
+                    Utils.showLog(Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }
 
                 @Override
-                public Map<String, String> getHeaders () throws AuthFailureError {
+                public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<>();
-                    params.put (AppConfigTags.HEADER_API_KEY, Constants.api_key);
-                    Utils.showLog (Log.INFO, AppConfigTags.HEADERS_SENT_TO_THE_SERVER, "" + params, false);
+                    params.put(AppConfigTags.HEADER_API_KEY, Constants.api_key);
+                    Utils.showLog(Log.INFO, AppConfigTags.HEADERS_SENT_TO_THE_SERVER, "" + params, false);
                     return params;
                 }
             };
-            Utils.sendRequest (strRequest1, 60);
+            Utils.sendRequest(strRequest1, 60);
         } else {
-            swipeRefreshLayout.setRefreshing (false);
-            Utils.showSnackBar (this, clMain, getResources ().getString (R.string.snackbar_text_no_internet_connection_available), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_go_to_settings), new View.OnClickListener () {
+            swipeRefreshLayout.setRefreshing(false);
+            Utils.showSnackBar(this, clMain, getResources().getString(R.string.snackbar_text_no_internet_connection_available), Snackbar.LENGTH_LONG, getResources().getString(R.string.snackbar_action_go_to_settings), new View.OnClickListener() {
                 @Override
-                public void onClick (View v) {
-                    Intent dialogIntent = new Intent (Settings.ACTION_SETTINGS);
-                    dialogIntent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity (dialogIntent);
+                public void onClick(View v) {
+                    Intent dialogIntent = new Intent(Settings.ACTION_SETTINGS);
+                    dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(dialogIntent);
                 }
             });
-            rlInternetConnection.setVisibility (View.VISIBLE);
-            rlList.setVisibility (View.GONE);
-            rlNoResultFound.setVisibility (View.GONE);
+            rlInternetConnection.setVisibility(View.VISIBLE);
+            rlList.setVisibility(View.GONE);
+            rlNoResultFound.setVisibility(View.GONE);
         }
     }
 
-    private void initDrawer () {
-        IProfile profile = new IProfile () {
+    private void initDrawer() {
+        IProfile profile = new IProfile() {
             @Override
-            public Object withName (String name) {
+            public Object withName(String name) {
                 return null;
             }
 
             @Override
-            public StringHolder getName () {
+            public StringHolder getName() {
                 return null;
             }
 
             @Override
-            public Object withEmail (String email) {
+            public Object withEmail(String email) {
                 return null;
             }
 
             @Override
-            public StringHolder getEmail () {
+            public StringHolder getEmail() {
                 return null;
             }
 
             @Override
-            public Object withIcon (Drawable icon) {
+            public Object withIcon(Drawable icon) {
                 return null;
             }
 
             @Override
-            public Object withIcon (Bitmap bitmap) {
+            public Object withIcon(Bitmap bitmap) {
                 return null;
             }
 
             @Override
-            public Object withIcon (@DrawableRes int iconRes) {
+            public Object withIcon(@DrawableRes int iconRes) {
                 return null;
             }
 
             @Override
-            public Object withIcon (String url) {
+            public Object withIcon(String url) {
                 return null;
             }
 
             @Override
-            public Object withIcon (Uri uri) {
+            public Object withIcon(Uri uri) {
                 return null;
             }
 
             @Override
-            public Object withIcon (IIcon icon) {
+            public Object withIcon(IIcon icon) {
                 return null;
             }
 
             @Override
-            public ImageHolder getIcon () {
+            public ImageHolder getIcon() {
                 return null;
             }
 
             @Override
-            public Object withSelectable (boolean selectable) {
+            public Object withSelectable(boolean selectable) {
                 return null;
             }
 
             @Override
-            public boolean isSelectable () {
+            public boolean isSelectable() {
                 return false;
             }
 
             @Override
-            public Object withIdentifier (long identifier) {
+            public Object withIdentifier(long identifier) {
                 return null;
             }
 
             @Override
-            public long getIdentifier () {
+            public long getIdentifier() {
                 return 0;
             }
         };
 
-        DrawerImageLoader.init (new AbstractDrawerImageLoader() {
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
-            public void set (ImageView imageView, Uri uri, Drawable placeholder) {
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
                 if (uri != null) {
-                    Glide.with (imageView.getContext ()).load (uri).placeholder (placeholder).into (imageView);
+                    Glide.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
                 }
             }
 
             @Override
-            public void cancel (ImageView imageView) {
-                Glide.clear (imageView);
+            public void cancel(ImageView imageView) {
+                Glide.clear(imageView);
             }
 
             @Override
-            public Drawable placeholder (Context ctx, String tag) {
+            public Drawable placeholder(Context ctx, String tag) {
                 //define different placeholders for different imageView targets
                 //default tags are accessible via the DrawerImageLoader.Tags
                 //custom ones can be checked via string. see the CustomUrlBasePrimaryDrawerItem LINE 111
-                if (DrawerImageLoader.Tags.PROFILE.name ().equals (tag)) {
-                    return DrawerUIUtils.getPlaceHolder (ctx);
-                } else if (DrawerImageLoader.Tags.ACCOUNT_HEADER.name ().equals (tag)) {
-                    return new IconicsDrawable(ctx).iconText (" ").backgroundColorRes (com.mikepenz.materialdrawer.R.color.colorPrimary).sizeDp (56);
-                } else if ("customUrlItem".equals (tag)) {
-                    return new IconicsDrawable (ctx).iconText (" ").backgroundColorRes (R.color.md_white_1000);
+                if (DrawerImageLoader.Tags.PROFILE.name().equals(tag)) {
+                    return DrawerUIUtils.getPlaceHolder(ctx);
+                } else if (DrawerImageLoader.Tags.ACCOUNT_HEADER.name().equals(tag)) {
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(com.mikepenz.materialdrawer.R.color.colorPrimary).sizeDp(56);
+                } else if ("customUrlItem".equals(tag)) {
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(R.color.md_white_1000);
                 }
 
                 //we use the default one for
                 //DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name()
 
-                return super.placeholder (ctx, tag);
+                return super.placeholder(ctx, tag);
             }
         });
 
 
-        if (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE).length () != 0) {
+        if (buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.BUYER_IMAGE).length() != 0) {
             headerResult = new AccountHeaderBuilder()
-                    .withActivity (this)
-                    .withCompactStyle (false)
-                    .withTypeface (SetTypeFace.getTypeface (MainActivity.this))
-                    .withTypeface (SetTypeFace.getTypeface (this))
-                    .withPaddingBelowHeader (false)
-                    .withSelectionListEnabled (false)
-                    .withSelectionListEnabledForSingleProfile (false)
-                    .withProfileImagesVisible (false)
-                    .withOnlyMainProfileImageVisible (true)
-                    .withDividerBelowHeader (true)
-                    .withHeaderBackground (R.drawable.drawer_bg)
-                    .withSavedInstance (savedInstanceState)
-                    .withOnAccountHeaderListener (new AccountHeader.OnAccountHeaderListener () {
+                    .withActivity(this)
+                    .withCompactStyle(false)
+                    .withTypeface(SetTypeFace.getTypeface(MainActivity.this))
+                    .withTypeface(SetTypeFace.getTypeface(this))
+                    .withPaddingBelowHeader(false)
+                    .withSelectionListEnabled(false)
+                    .withSelectionListEnabledForSingleProfile(false)
+                    .withProfileImagesVisible(false)
+                    .withOnlyMainProfileImageVisible(true)
+                    .withDividerBelowHeader(true)
+                    .withHeaderBackground(R.drawable.drawer_bg)
+                    .withSavedInstance(savedInstanceState)
+                    .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                         @Override
-                        public boolean onProfileChanged (View view, IProfile profile, boolean currentProfile) {
-                           // Intent intent = new Intent (MainActivity.this, MyProfileActivity.class);
+                        public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                            // Intent intent = new Intent (MainActivity.this, MyProfileActivity.class);
                             //startActivity (intent);
                             return false;
                         }
                     })
-                    .build ();
-            headerResult.addProfiles (new ProfileDrawerItem()
-                    .withIcon (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE))
-                    .withName (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME))
-                    .withEmail (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL)));
+                    .build();
+            headerResult.addProfiles(new ProfileDrawerItem()
+                    .withIcon(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.BUYER_IMAGE))
+                    .withName(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_NAME))
+                    .withEmail(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_EMAIL)));
         } else {
-            headerResult = new AccountHeaderBuilder ()
-                    .withActivity (this)
-                    .withCompactStyle (false)
-                    .withTypeface (SetTypeFace.getTypeface (MainActivity.this))
-                    .withTypeface (SetTypeFace.getTypeface (this))
-                    .withPaddingBelowHeader (false)
-                    .withSelectionListEnabled (false)
-                    .withSelectionListEnabledForSingleProfile (false)
-                    .withProfileImagesVisible (false)
-                    .withOnlyMainProfileImageVisible (false)
-                    .withDividerBelowHeader (true)
-                    .withHeaderBackground (R.drawable.drawer_bg)
-                    .withSavedInstance (savedInstanceState)
-                    .withOnAccountHeaderListener (new AccountHeader.OnAccountHeaderListener () {
+            headerResult = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withCompactStyle(false)
+                    .withTypeface(SetTypeFace.getTypeface(MainActivity.this))
+                    .withTypeface(SetTypeFace.getTypeface(this))
+                    .withPaddingBelowHeader(false)
+                    .withSelectionListEnabled(false)
+                    .withSelectionListEnabledForSingleProfile(false)
+                    .withProfileImagesVisible(false)
+                    .withOnlyMainProfileImageVisible(false)
+                    .withDividerBelowHeader(true)
+                    .withHeaderBackground(R.drawable.drawer_bg)
+                    .withSavedInstance(savedInstanceState)
+                    .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                         @Override
-                        public boolean onProfileChanged (View view, IProfile profile, boolean currentProfile) {
+                        public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
                          /*   Intent intent = new Intent (MainActivity.this, MyProfileActivity.class);
                             startActivity (intent);*/
                             return false;
                         }
                     })
-                    .build ();
-            headerResult.addProfiles (new ProfileDrawerItem ()
-                    .withName (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME))
-                    .withEmail (buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL)));
+                    .build();
+            headerResult.addProfiles(new ProfileDrawerItem()
+                    .withName(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_NAME))
+                    .withEmail(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_EMAIL)));
         }
 
-        result = new DrawerBuilder()
-                .withActivity (this)
-                .withAccountHeader (headerResult)
-//                .withToolbar (toolbar)
-//                .withItemAnimator (new AlphaCrossFadeAnimator ())
-                .addDrawerItems (
-                        new PrimaryDrawerItem().withName ("Home").withIcon (FontAwesome.Icon.faw_home).withIdentifier (1).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("My Profile").withIcon (FontAwesome.Icon.faw_user).withIdentifier (8).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("My Scheduled Access").withIcon (FontAwesome.Icon.faw_calendar).withIdentifier (11).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("My Favorites").withIcon (FontAwesome.Icon.faw_heart).withIdentifier (2).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("How It Works").withIcon (FontAwesome.Icon.faw_handshake_o).withIdentifier (3).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("About Us").withIcon (FontAwesome.Icon.faw_info).withIdentifier (4).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Testimonials").withIcon (FontAwesome.Icon.faw_comments).withIdentifier (5).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Contact Us").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("FAQ").withIcon (FontAwesome.Icon.faw_question).withIdentifier (7).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Chat Support").withIcon (FontAwesome.Icon.faw_reply).withIdentifier (12).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Facebook Page").withIcon (FontAwesome.Icon.faw_reply).withIdentifier (13).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Change Password").withIcon (FontAwesome.Icon.faw_key).withIdentifier (9).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Rate and Review").withIcon (FontAwesome.Icon.faw_key).withIdentifier (14).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Refer Your Friend").withIcon (FontAwesome.Icon.faw_key).withIdentifier (15).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
-                )
-                .withSavedInstance (savedInstanceState)
-                .withOnDrawerItemClickListener (new Drawer.OnDrawerItemClickListener () {
+
+        DrawerBuilder drawerBuilder = new DrawerBuilder()
+                .withActivity(this)
+                .withAccountHeader(headerResult)
+                .withSavedInstance(savedInstanceState)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public boolean onItemClick (View view, int position, IDrawerItem drawerItem) {
-                        switch ((int) drawerItem.getIdentifier ()) {
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        switch ((int) drawerItem.getIdentifier()) {
                             case 2:
-                              /*  Intent intent = new Intent (MainActivity.this, MyFavouriteActivity.class);
-                                startActivity (intent);
-                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
+                                Intent shareApp = new Intent ();
+                                shareApp.setAction (Intent.ACTION_SEND);
+                                shareApp.setType ("text/plain");
+                                shareApp.putExtra (Intent.EXTRA_TEXT, "http://play.google.com/store/apps/details?id=" + getPackageName ());
+                                startActivity (Intent.createChooser (shareApp, "Share"));
                                 break;
                             case 3:
-                               /* Intent intent2 = new Intent (MainActivity.this, HowItWorksActivity.class);
-                                startActivity (intent2);
-                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
+                                Intent intent2 = new Intent(MainActivity.this, HowItWorksActivity.class);
+                                startActivity(intent2);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
                             case 4:
-                               /* Intent intent3 = new Intent (MainActivity.this, AboutUsActivity.class);
-                                startActivity (intent3);
-                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
+                                Intent intent3 = new Intent(MainActivity.this, AboutUsActivity.class);
+                                startActivity(intent3);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
                             case 5:
                                /* Intent intent4 = new Intent (MainActivity.this, TestimonialActivity.class);
@@ -768,14 +694,14 @@ public class MainActivity extends AppCompatActivity {
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
                                 break;
                             case 6:
-                               /* Intent intent5 = new Intent (MainActivity.this, ContactUsActivity.class);
-                                startActivity (intent5);
-                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
+                                Intent intent5 = new Intent(MainActivity.this, ContactUsActivity.class);
+                                startActivity(intent5);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
                             case 7:
-                               /* Intent intent6 = new Intent (MainActivity.this, FAQActivity.class);
-                                startActivity (intent6);
-                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
+                                Intent intent6 = new Intent(MainActivity.this, FAQActivity.class);
+                                startActivity(intent6);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
                             case 8:
                                /* Intent intent7 = new Intent (MainActivity.this, MyProfileActivity.class);
@@ -788,15 +714,15 @@ public class MainActivity extends AppCompatActivity {
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
                                 break;
                             case 10:
-                                showLogOutDialog ();
+                                showLogOutDialog();
                                 break;
                             case 11:
-                               /* Intent intent9 = new Intent (MainActivity.this, MyAppointmentActivity.class);
+                                Intent intent9 = new Intent (MainActivity.this, MyAppointmentActivity.class);
                                 startActivity (intent9);
-                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
+                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
                             case 12:
-                           /*    *//* Intent intent12 = new Intent (MainActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
+                                /*    *//* Intent intent12 = new Intent (MainActivity.this, com.livechatinc.inappchat.ChatWindowActivity.class);
                                 intent12.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_GROUP_ID, "0");
                                 intent12.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_LICENCE_NUMBER, "9704635");
                                 intent12.putExtra (com.livechatinc.inappchat.ChatWindowActivity.KEY_VISITOR_NAME, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME));
@@ -810,19 +736,16 @@ public class MainActivity extends AppCompatActivity {
                                 break;
 
                             case 14:
-                               /* Uri uri = Uri.parse ("market://details?id=" + getPackageName ());
-                                Intent goToMarket = new Intent (Intent.ACTION_VIEW, uri);
-                                // To count with Play market backstack, After pressing back button,
-                                // to taken back to our application, we need to add following flags to intent.
-                                goToMarket.addFlags (Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                                try {
-                                    startActivity (goToMarket);
-                                } catch (ActivityNotFoundException e) {
-                                    startActivity (new Intent (Intent.ACTION_VIEW,
-                                            Uri.parse ("http://play.google.com/store/apps/details?id=" + getPackageName ())));
-                                }*/
+                                try{
+                                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + buyerDetailsPref.getStringPref(MainActivity.this,BuyerDetailsPref.INSIDER_EMAIL)));
+                                    intent.putExtra(Intent.EXTRA_SUBJECT, "");
+                                    intent.putExtra(Intent.EXTRA_TEXT, "");
+                                    startActivity(intent);
+                                }catch(ActivityNotFoundException e){
+                                    //TODO smth
+                                }
+
+
                                 break;
 
                             case 15:
@@ -836,59 +759,79 @@ public class MainActivity extends AppCompatActivity {
                         }
                         return false;
                     }
-                })
-                .build ();
-//        result.getActionBarDrawerToggle ().setDrawerIndicatorEnabled (false);
+                });
+
+        switch (buyerDetailsPref.getStringPref(MainActivity.this, buyerDetailsPref.LOGIN_TYPE))
+
+        {
+
+            case "INSIDER":
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem().withName("Home").withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("My Scheduled Access").withIcon(FontAwesome.Icon.faw_calendar).withIdentifier(11).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("How It Works").withIcon(FontAwesome.Icon.faw_handshake_o).withIdentifier(3).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Share This App").withIcon(FontAwesome.Icon.faw_share).withIdentifier(2).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Contact Us (Home Trust)").withIcon(FontAwesome.Icon.faw_phone).withIdentifier(6).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Contact Your Buyer").withIcon(FontAwesome.Icon.faw_key).withIdentifier(14).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Sign Out").withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(10).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this))
+                );
+                break;
+
+            case "BUYER":
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem().withName("Home").withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("About Us").withIcon(FontAwesome.Icon.faw_info).withIdentifier(4).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Contact Us").withIcon(FontAwesome.Icon.faw_phone).withIdentifier(6).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("FAQ").withIcon(FontAwesome.Icon.faw_question).withIdentifier(7).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Sign Out").withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(10).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this))
+                );
+
+                break;
+
+
+        }
+        result = drawerBuilder.build();
     }
 
 
-
-    private void showLogOutDialog () {
-        MaterialDialog dialog = new MaterialDialog.Builder (this)
-                .limitIconToDefaultSize ()
-                .content ("Do you wish to Sign Out?")
-                .positiveText ("Yes")
-                .negativeText ("No")
-                .typeface (SetTypeFace.getTypeface (MainActivity.this), SetTypeFace.getTypeface (MainActivity.this))
-                .onPositive (new MaterialDialog.SingleButtonCallback () {
+    private void showLogOutDialog() {
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .limitIconToDefaultSize()
+                .content("Do you wish to Sign Out?")
+                .positiveText("Yes")
+                .negativeText("No")
+                .typeface(SetTypeFace.getTypeface(MainActivity.this), SetTypeFace.getTypeface(MainActivity.this))
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick (@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_MOBILE, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_LOGIN_KEY, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE, "");
-                        buyerDetailsPref.putIntPref (MainActivity.this, BuyerDetailsPref.BUYER_ID, 0);
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_FACEBOOK_ID, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_HOME_TYPE, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATE, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_PRICE_RANGE, "");
-                        buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ACTIVE_SESSION, "");
-
-                        Intent intent = new Intent (MainActivity.this, LoginActivity.class);
-                        intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity (intent);
-                        overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+                        buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_NAME, "");
+                        buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_EMAIL, "");
+                        buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_MOBILE, "");
+                        buyerDetailsPref.putIntPref(MainActivity.this, BuyerDetailsPref.INSIDER_ID, 0);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     }
-                }).build ();
-        dialog.show ();
+                }).build();
+        dialog.show();
     }
 
     @Override
-    public void onBackPressed () {
-        if (result != null && result.isDrawerOpen ()) {
-            result.closeDrawer ();
+    public void onBackPressed() {
+        if (result != null && result.isDrawerOpen()) {
+            result.closeDrawer();
         } else {
-            super.onBackPressed ();
-            finish ();
-            overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+            super.onBackPressed();
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 
     @Override
-    public void onDestroy () {
-        super.onDestroy ();
+    public void onDestroy() {
+        super.onDestroy();
 //        filterDetailsPref.putBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED, false);
 //        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_BATHROOMS, "");
 //        filterDetailsPref.putStringPref (MainActivity.this, FilterDetailsPref.FILTER_BEDROOMS, "");
@@ -900,41 +843,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume () {
-        swipeRefreshLayout.setRefreshing (true);
-        super.onResume ();
+    public void onResume() {
+        swipeRefreshLayout.setRefreshing(true);
+        super.onResume();
         // put your code here...
-        getAllProperties ();
+        getAllProperties();
     }
 
 
-
-
-
-    private void initApplication () {
+    private void initApplication() {
         PackageInfo pInfo = null;
         try {
-            pInfo = getPackageManager ().getPackageInfo (getPackageName (), 0);
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace ();
+            e.printStackTrace();
         }
 
-        if (NetworkConnection.isNetworkAvailable (this)) {
-            Utils.showLog (Log.INFO, AppConfigTags.URL, AppConfigURL.URL_INIT, true);
+        if (NetworkConnection.isNetworkAvailable(this)) {
+            Utils.showLog(Log.INFO, AppConfigTags.URL, AppConfigURL.URL_INIT, true);
             final PackageInfo finalPInfo = pInfo;
-            StringRequest strRequest = new StringRequest (Request.Method.POST, AppConfigURL.URL_INIT,
-                    new Response.Listener<String> () {
+            StringRequest strRequest = new StringRequest(Request.Method.POST, AppConfigURL.URL_INIT,
+                    new Response.Listener<String>() {
                         @Override
-                        public void onResponse (String response) {
-                            Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
+                        public void onResponse(String response) {
+                            Utils.showLog(Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
                             if (response != null) {
                                 try {
-                                    JSONObject jsonObj = new JSONObject (response);
-                                    boolean error = jsonObj.getBoolean (AppConfigTags.ERROR);
-                                    String message = jsonObj.getString (AppConfigTags.MESSAGE);
-                                    int status = jsonObj.getInt (AppConfigTags.STATUS);
+                                    JSONObject jsonObj = new JSONObject(response);
+                                    boolean error = jsonObj.getBoolean(AppConfigTags.ERROR);
+                                    String message = jsonObj.getString(AppConfigTags.MESSAGE);
+                                    int status = jsonObj.getInt(AppConfigTags.STATUS);
 
-                                    if (! error) {
+                                    if (!error) {
                                      /*   if (jsonObj.getInt (AppConfigTags.VERSION_UPDATE) > 0) {
                                             if (jsonObj.getInt (AppConfigTags.VERSION_CRITICAL) == 1) {
                                                 MaterialDialog dialog = new MaterialDialog.Builder (MainActivity.this)
@@ -1005,63 +945,63 @@ public class MainActivity extends AppCompatActivity {
                                     } else {
                                         if (status == 2) {
 
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_NAME, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_EMAIL, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_MOBILE, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_LOGIN_KEY, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_IMAGE, "");
-                                            buyerDetailsPref.putIntPref (MainActivity.this, BuyerDetailsPref.BUYER_ID, 0);
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.BUYER_FACEBOOK_ID, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_HOME_TYPE, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATE, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.PROFILE_PRICE_RANGE, "");
-                                            buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ACTIVE_SESSION, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.BUYER_NAME, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.BUYER_EMAIL, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.BUYER_MOBILE, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.BUYER_LOGIN_KEY, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.BUYER_IMAGE, "");
+                                            buyerDetailsPref.putIntPref(MainActivity.this, BuyerDetailsPref.BUYER_ID, 0);
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.BUYER_FACEBOOK_ID, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.PROFILE_HOME_TYPE, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.PROFILE_STATE, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.PROFILE_PRICE_RANGE, "");
+                                            buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.ACTIVE_SESSION, "");
 
-                                            Intent intent = new Intent (MainActivity.this, LoginActivity.class);
-                                            intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity (intent);
-                                            overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+                                            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                                         } else {
-                                            Utils.showSnackBar (MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
+                                            Utils.showSnackBar(MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
                                         }
 
                                     }
                                 } catch (Exception e) {
-                                    e.printStackTrace ();
+                                    e.printStackTrace();
                                 }
                             } else {
                                 //   initDefaultBanner ();
-                                Utils.showLog (Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
+                                Utils.showLog(Log.WARN, AppConfigTags.SERVER_RESPONSE, AppConfigTags.DIDNT_RECEIVE_ANY_DATA_FROM_SERVER, true);
                             }
                         }
                     },
-                    new Response.ErrorListener () {
+                    new Response.ErrorListener() {
                         @Override
-                        public void onErrorResponse (VolleyError error) {
-                            Utils.showLog (Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString (), true);
+                        public void onErrorResponse(VolleyError error) {
+                            Utils.showLog(Log.ERROR, AppConfigTags.VOLLEY_ERROR, error.toString(), true);
                         }
                     }) {
 
                 @Override
-                protected Map<String, String> getParams () throws AuthFailureError {
-                    Map<String, String> params = new Hashtable<> ();
-                    params.put ("app_version", String.valueOf (finalPInfo.versionCode));
-                    params.put (AppConfigTags.TYPE, "init");
-                    params.put (AppConfigTags.BUYER_DEVICE, "ANDROID");
-                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (MainActivity.this, BuyerDetailsPref.BUYER_ID)));
-                    Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new Hashtable<>();
+                    params.put("app_version", String.valueOf(finalPInfo.versionCode));
+                    params.put(AppConfigTags.TYPE, "init");
+                    params.put(AppConfigTags.BUYER_DEVICE, "ANDROID");
+                    params.put(AppConfigTags.BUYER_ID, String.valueOf(buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.BUYER_ID)));
+                    Utils.showLog(Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }
 
                 @Override
-                public Map<String, String> getHeaders () throws AuthFailureError {
-                    Map<String, String> params = new HashMap<> ();
-                    Utils.showLog (Log.INFO, AppConfigTags.HEADERS_SENT_TO_THE_SERVER, "" + params, false);
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    Utils.showLog(Log.INFO, AppConfigTags.HEADERS_SENT_TO_THE_SERVER, "" + params, false);
                     return params;
                 }
             };
-            strRequest.setRetryPolicy (new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            Utils.sendRequest (strRequest, 30);
+            strRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Utils.sendRequest(strRequest, 30);
         } else {
         }
 
@@ -1072,28 +1012,29 @@ public class MainActivity extends AppCompatActivity {
         Activity activity;
         DialogAction dialogAction;
 
-        public CustomListener (Activity activity, MaterialDialog dialog, DialogAction dialogAction) {
+        public CustomListener(Activity activity, MaterialDialog dialog, DialogAction dialogAction) {
             this.dialog = dialog;
             this.activity = activity;
             this.dialogAction = dialogAction;
         }
 
         @Override
-        public void onClick (View v) {
+        public void onClick(View v) {
             if (dialogAction == DialogAction.POSITIVE) {
-                final String appPackageName = getPackageName ();
+                final String appPackageName = getPackageName();
                 try {
-                    startActivity (new Intent (Intent.ACTION_VIEW, Uri.parse ("market://details?id=" + appPackageName)));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
                 } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity (new Intent (Intent.ACTION_VIEW, Uri.parse ("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                 }
             }
             if (dialogAction == DialogAction.NEGATIVE) {
-                finish ();
-                overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
             }
         }
     }
 
 }
+

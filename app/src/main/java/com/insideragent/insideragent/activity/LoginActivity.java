@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (etEmail.getText ().toString ().trim ().length () == 0 && etPassword.getText ().toString ().length () == 0) {
                     etEmail.setError (s1);
                     etPassword.setError (s3);
-                } else if (! Utils.isValidEmail1 (etEmail.getText ().toString ())) {
+                } else if (etEmail.getText ().toString().trim()=="") {
                     etEmail.setError (s2);
 
                 } else {
@@ -147,33 +147,27 @@ public class LoginActivity extends AppCompatActivity {
                                     JSONObject jsonObj = new JSONObject(response);
                                     boolean error = jsonObj.getBoolean(AppConfigTags.ERROR);
                                     String message = jsonObj.getString(AppConfigTags.MESSAGE);
-                                    String type = jsonObj.getString(AppConfigTags.TYPE);
-                                    buyerDetailsPref.putIntPref (LoginActivity.this, BuyerDetailsPref.BUYER_ID, jsonObj.getInt (AppConfigTags.BUYER_ID));
-                                    buyerDetailsPref.putStringPref (LoginActivity.this, BuyerDetailsPref.BUYER_NAME, jsonObj.getString (AppConfigTags.BUYER_NAME));
-                                    buyerDetailsPref.putStringPref (LoginActivity.this, BuyerDetailsPref.BUYER_EMAIL, jsonObj.getString (AppConfigTags.BUYER_EMAIL));
-                                    buyerDetailsPref.putStringPref (LoginActivity.this, BuyerDetailsPref.BUYER_MOBILE, jsonObj.getString (AppConfigTags.BUYER_MOBILE));
-                                    buyerDetailsPref.putIntPref (LoginActivity.this, BuyerDetailsPref.PROFILE_STATUS, jsonObj.getInt (AppConfigTags.PROFILE_STATUS));
+                                  //  String type = jsonObj.getString(AppConfigTags.TYPE);
+                                    if(!error) {
+                                        buyerDetailsPref.putIntPref(LoginActivity.this, BuyerDetailsPref.INSIDER_ID, jsonObj.getInt(AppConfigTags.INSIDER_ID));
+                                        buyerDetailsPref.putIntPref(LoginActivity.this, BuyerDetailsPref.BUYER_ID, jsonObj.getInt(AppConfigTags.INSIDER_ID));
+                                        buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.INSIDER_NAME, jsonObj.getString(AppConfigTags.INSIDER_NAME));
+                                        buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.INSIDER_EMAIL, jsonObj.getString(AppConfigTags.INSIDER_EMAIL));
+                                        buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.INSIDER_MOBILE, jsonObj.getString(AppConfigTags.INSIDER_MOBILE));
+                                        buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.LOGIN_TYPE, jsonObj.getString(AppConfigTags.LOGIN_TYPE));
 
-                                    switch (jsonObj.getInt (AppConfigTags.PROFILE_STATUS)) {
-                                        case 0:
-                                            break;
-                                        case 1:
-                                            buyerDetailsPref.putStringPref (LoginActivity.this, BuyerDetailsPref.PROFILE_STATE, jsonObj.getString (AppConfigTags.PROFILE_STATE));
-                                            buyerDetailsPref.putStringPref (LoginActivity.this, BuyerDetailsPref.PROFILE_PRICE_RANGE, jsonObj.getString (AppConfigTags.PROFILE_PRICE_RANGE));
-                                            buyerDetailsPref.putStringPref (LoginActivity.this, BuyerDetailsPref.PROFILE_HOME_TYPE, jsonObj.getString (AppConfigTags.PROFILE_HOME_TYPE));
-                                            break;
+
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                        LoginActivity.this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+
+                                        progressDialog.dismiss();
+                                    }else{
+                                        progressDialog.dismiss();
+                                        Utils.showSnackBar (LoginActivity.this, clMain, message, Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
                                     }
-
-
-                                    Intent intent = new Intent (LoginActivity.this, MainActivity.class);
-                                    intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity (intent);
-                                    LoginActivity.this.overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
-
-
-
-
-                                    progressDialog.dismiss ();
                                 } catch (Exception e) {
                                     progressDialog.dismiss ();
                                     Utils.showSnackBar (LoginActivity.this, clMain, getResources ().getString (R.string.snackbar_text_exception_occurred), Snackbar.LENGTH_LONG, getResources ().getString (R.string.snackbar_action_dismiss), null);
@@ -198,9 +192,8 @@ public class LoginActivity extends AppCompatActivity {
                 protected Map<String, String> getParams () throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String> ();
                     params.put (AppConfigTags.BUYER_DEVICE, "ANDROID");
-                    params.put (AppConfigTags.BUYER_EMAIL, email);
+                    params.put (AppConfigTags.BUYER_USERNAME, email);
                     params.put (AppConfigTags.BUYER_PASSWORD, password);
-                    params.put (AppConfigTags.BUYER_FIREBASE_ID, buyerDetailsPref.getStringPref (LoginActivity.this, BuyerDetailsPref.BUYER_FIREBASE_ID));
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }

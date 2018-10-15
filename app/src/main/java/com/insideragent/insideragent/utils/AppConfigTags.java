@@ -166,5 +166,14 @@ public class AppConfigTags {
   //  public static final String VERSION_UPDATE = "version_update";
   //  public static final String VERSION_CRITICAL = "version_critical";
   //  public static final String UPDATE_MESSAGE = "update_message";
-    
+
+
+    public static String BUYER_USERNAME = "buyer_username";
+    public static String LOGIN_TYPE = "login_type";
+    public static String INSIDER_ID = "insider_id";
+    public static String INSIDER_NAME = "insider_name";
+    public static String INSIDER_EMAIL = "insider_email";
+    public static String INSIDER_MOBILE = "insider_mobile";
 }
+
+

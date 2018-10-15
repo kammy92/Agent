@@ -121,15 +121,7 @@
                             android:textSize="@dimen/text_size_small"
                             android:textStyle="bold"/>
 
-                        <ImageView
-                            android:id="@+id/ivVideo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/ivFavourite"
-                            android:padding="@dimen/activity_margin_small"
-                            android:src="@drawable/ic_video"
-                            android:visibility="gone"/>
+
 
                         <ImageView
                             android:id="@+id/ivFavourite"
