@@ -156,11 +156,10 @@ public class MainActivity extends AppCompatActivity {
         if (buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.INSIDER_ID) == 0) {
             Intent myIntent = new Intent(this, LoginActivity.class);
             startActivity(myIntent);
-      /*  } else if (buyerDetailsPref.getIntPref (MainActivity.this, BuyerDetailsPref.PROFILE_STATUS) == 0) {
-            Intent myIntent = new Intent (this, MyProfileActivity.class);
-            startActivity (myIntent);
-        }*/
         }
+
+
+
         if (buyerDetailsPref.getIntPref(MainActivity.this, BuyerDetailsPref.INSIDER_ID) == 0)
             finish();
     }
