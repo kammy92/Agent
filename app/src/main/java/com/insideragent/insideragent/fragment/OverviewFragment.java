@@ -166,7 +166,8 @@ public class OverviewFragment extends Fragment {
         animation1.setDuration (2000);
         animation2 = new AlphaAnimation (1.0f, 0.5f);
         animation2.setDuration (2000);
-        
+
+
         
         tvYear.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_YEAR_BUILD));
         tvAddress1.setText (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_ADDRESS1));
@@ -243,7 +244,7 @@ public class OverviewFragment extends Fragment {
                             if ((1.0f - interpolatedTime) < 1.0f) {
                                 if ((cvWorkScope.getHeight () * (1.0f - interpolatedTime)) <= Utils.pxFromDp (getActivity (), 200.0f)) {
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MATCH_PARENT, (int) (Utils.pxFromDp (getActivity (), 200.0f)));
-                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int) (Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
+                                    params.setMargins ((int) (Utils.pxFromDp (getActivity (), 8.0f)), 0, (int)(Utils.pxFromDp (getActivity (), 8.0f)), (int) (Utils.pxFromDp (getActivity (), 8.0f)));
                                     cvWorkScope.setLayoutParams (params);
                                 } else {
                                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MATCH_PARENT, (int) (cvOverview.getHeight () * (1.0f - interpolatedTime)));
@@ -511,13 +512,13 @@ public class OverviewFragment extends Fragment {
             Log.e ("karman", "executed");
             if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_DESCRIPTION).length () > 0) {
                 llDescription.setVisibility (View.VISIBLE);
-                if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1) {
+                if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_AUCTION_STATUS) == 1 && buyerDetailsPref.getStringPref(getActivity(),BuyerDetailsPref.LOGIN_TYPE).equalsIgnoreCase("INSIDER")) {
                     tvPlaceAnOffer.setVisibility (View.VISIBLE);
                 } else {
                     tvPlaceAnOffer.setVisibility (View.GONE);
                 }
     
-                if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1) {
+                if (propertyDetailsPref.getIntPref (getActivity (), PropertyDetailsPref.PROPERTY_TOUR_STATUS) == 1 && buyerDetailsPref.getStringPref(getActivity(),BuyerDetailsPref.LOGIN_TYPE).equalsIgnoreCase("INSIDER")) {
                     tvScheduleTour.setVisibility (View.VISIBLE);
                 } else {
                     tvScheduleTour.setVisibility (View.GONE);
@@ -534,7 +535,7 @@ public class OverviewFragment extends Fragment {
                 llKeyDetails.setVisibility (View.GONE);
             }
             if (propertyDetailsPref.getStringPref (getActivity (), PropertyDetailsPref.PROPERTY_REALTOR).length () > 0) {
-                llRealtor.setVisibility (View.VISIBLE);
+                llRealtor.setVisibility (View.GONE);
             } else {
                 llRealtor.setVisibility (View.GONE);
             }

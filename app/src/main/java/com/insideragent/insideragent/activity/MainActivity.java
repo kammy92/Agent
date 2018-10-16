@@ -46,6 +46,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -89,6 +90,11 @@ import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -128,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
     private AccountHeader headerResult = null;
     private Drawer result = null;
     String currentDay;
+    ImageView ivImage;
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
         rlList = (RelativeLayout) findViewById(R.id.rlList);
         tvRetry = (TextView) findViewById(R.id.tvRetry);
         tvResetFilter = (TextView) findViewById(R.id.tvResetFilter);
+        ivImage=(ImageView)findViewById(R.id.ivImage);
+        tvTitle=(TextView)findViewById(R.id.tvTitle);
 
     }
 
@@ -201,6 +211,33 @@ public class MainActivity extends AppCompatActivity {
         rvPropertyList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvPropertyList.setItemAnimator(new DefaultItemAnimator());
         Utils.setTypefaceToAllViews(this, clMain);
+
+        tvTitle.setText(buyerDetailsPref.getStringPref(MainActivity.this,BuyerDetailsPref.INSIDER_NAME).toUpperCase());
+
+
+
+        if (!buyerDetailsPref.getStringPref(MainActivity.this,BuyerDetailsPref.INSIDER_LOGO).equalsIgnoreCase("")) {
+           ivImage.setVisibility(View.VISIBLE);
+            String urlStr = buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_LOGO);
+            URL url = null;
+            try {
+                url = new URL(urlStr);
+                URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+                url = uri.toURL();
+                Log.d("image url", String.valueOf(url));
+                Glide.with(MainActivity.this)
+                        .load("" + url)
+                        .into(ivImage);
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }else {
+            ivImage.setVisibility(View.GONE);
+        }
 
 
     }
@@ -344,39 +381,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*
-    private void getAllProperties () {
-        propertyList.clear ();
 
-
-        ArrayList<String> imagesList = new ArrayList<String> ();
-        imagesList.clear ();
-        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/exterior/property_327/dcca01ddf8b02fb5d2fe89d3c55eb5dcExterior%20pic.png");
-        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/d755cd303ff826ce587fb0e55e6bc1c6IMG_5034.jpg");
-        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/63502fc15c1d04e5ad9f095d8bd03b2aIMG_5035.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/1a6c485de807e99fbb7b11a8f06e354fIMG_5036.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/d913733c109e622efea54bf04c778d1bIMG_5038.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/1d525c19d5c659f9d39a1abb941baf75IMG_5039.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/8bafdd842b1558edd07efd4b58b69ecfIMG_5040.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/6465f55d083394753d7656fbea7b5df6IMG_5041.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/23a5f19eee30dfcc0f7ddd7b4116986cIMG_5042.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/b41719c7631a3d7bc0c2d246cd2fb5daIMG_5043.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/1ee4363f712ced227c0b154029e5cfb8IMG_5048.jpg");
-//        imagesList.add ("http://clearsale.com/theme/theme1/seller_files/interior/property_327/3fd6c0348b2f1443715d0ee4139632c8IMG_5053.jpg");
-
-
-//        propertyList.add (new Property (1, 0, imagesList, "9300", "3", "3", "1828", "1947", "7919 Lowell Boulevard", "West Minster", true));
-//        propertyList.add (new Property (2, 1, imagesList, "9300", "4", "2", "2448", "1925", "1137 Colorado Boulevard", "Denver", true));
-//        propertyList.add (new Property (3, 1, imagesList, "9300", "3", "2", "1828", "1975", "268 South Newark Circle Lowell", "Aurora", true));
-//        propertyList.add (new Property (4, 1, imagesList, "9300", "4", "2", "1762", "1954", "1541 Syracuse Street", "Denver", true));
-//        propertyList.add (new Property (5, 2, imagesList, "9300", "3", "1", "1008", "1900", "625 East 11 Street", "Loveland", false));
-//        propertyList.add (new Property (6, 2, imagesList, "9300", "3", "2", "1485", "1962", "6121 South Lvy Street", "Centennial", false));
-//        propertyList.add (new Property (7, 2, imagesList, "9300", "3", "1", "1067", "1954", "1521 Syracuse Street", "Denver", false));
-//        propertyList.add (new Property (8, 0, imagesList, "9300", "2", "1", "1680", "1936", "4131 South Elati Street", "Englewood", false));
-//        propertyList.add (new Property (9, 0, imagesList, "9300", "2", "2", "8500", "1964", "11404 Claude Court", "Northglenn", false));
-        swipeRefreshLayout.setRefreshing (false);
-    }
-    */
     private void getAllProperties() {
         if (NetworkConnection.isNetworkAvailable(MainActivity.this)) {
             Utils.showLog(Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_LIST, true);
@@ -607,7 +612,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        if (buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.BUYER_IMAGE).length() != 0) {
+
+
+
+
+         Log.e("image drawer",buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_PHOTO));
+        if (buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_PHOTO).length() != 0) {
+
+            String urlStr = buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_PHOTO);
+            URL url = null;
+            try {
+                url = new URL(urlStr);
+                URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+                url = uri.toURL();
+                Log.d("image phote", String.valueOf(url));
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+
             headerResult = new AccountHeaderBuilder()
                     .withActivity(this)
                     .withCompactStyle(false)
@@ -631,7 +658,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build();
             headerResult.addProfiles(new ProfileDrawerItem()
-                    .withIcon(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.BUYER_IMAGE))
+                    .withIcon(""+url)
                     .withName(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_NAME))
                     .withEmail(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_EMAIL)));
         } else {
@@ -737,7 +764,7 @@ public class MainActivity extends AppCompatActivity {
 
                             case 14:
                                 try{
-                                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + buyerDetailsPref.getStringPref(MainActivity.this,BuyerDetailsPref.INSIDER_EMAIL)));
+                                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" ));
                                     intent.putExtra(Intent.EXTRA_SUBJECT, "");
                                     intent.putExtra(Intent.EXTRA_TEXT, "");
                                     startActivity(intent);
@@ -808,6 +835,8 @@ public class MainActivity extends AppCompatActivity {
                         buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_NAME, "");
                         buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_EMAIL, "");
                         buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_MOBILE, "");
+                        buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_PHOTO, "");
+                        buyerDetailsPref.putStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_LOGO, "");
                         buyerDetailsPref.putIntPref(MainActivity.this, BuyerDetailsPref.INSIDER_ID, 0);
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -1007,34 +1036,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class CustomListener implements View.OnClickListener {
-        private final MaterialDialog dialog;
-        Activity activity;
-        DialogAction dialogAction;
 
-        public CustomListener(Activity activity, MaterialDialog dialog, DialogAction dialogAction) {
-            this.dialog = dialog;
-            this.activity = activity;
-            this.dialogAction = dialogAction;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (dialogAction == DialogAction.POSITIVE) {
-                final String appPackageName = getPackageName();
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
-            }
-            if (dialogAction == DialogAction.NEGATIVE) {
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-
-            }
-        }
-    }
 
 }
 

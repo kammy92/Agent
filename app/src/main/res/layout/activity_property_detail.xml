@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:layout_above="@+id/tvContactUs">
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBar"
             android:layout_width="match_parent"
@@ -172,4 +173,18 @@
             android:visibility="visible"
             app:backgroundTint="@color/colorPrimary"/>
     </android.support.design.widget.CoordinatorLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact Us"
+        android:background="@drawable/state_button_selected"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="@dimen/activity_margin_small"
+        android:id="@+id/tvContactUs"
+        android:layout_margin="@dimen/activity_margin_small"
+        android:textColor="@color/text_color_white"
+        android:textStyle="bold"/>
 </RelativeLayout>

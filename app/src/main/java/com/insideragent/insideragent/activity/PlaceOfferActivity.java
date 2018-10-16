@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.insideragent.insideragent.R;
 import com.insideragent.insideragent.utils.AppConfigTags;
+import com.insideragent.insideragent.utils.AppConfigURL;
 import com.insideragent.insideragent.utils.SetTypeFace;
 import com.insideragent.insideragent.utils.Utils;
 
@@ -46,7 +47,7 @@ public class PlaceOfferActivity extends AppCompatActivity {
     }
     
     private void initData () {
-        webviewPlaceAnOffer.loadUrl ("https://www.hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0) + "");
+        webviewPlaceAnOffer.loadUrl (AppConfigURL.PLACE_OFFER_URL + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0) + "");
         webviewPlaceAnOffer.getSettings ().setJavaScriptEnabled (true);
         webviewPlaceAnOffer.getSettings ().setGeolocationEnabled (true);
         webviewPlaceAnOffer.getSettings ().setJavaScriptCanOpenWindowsAutomatically (true);
@@ -56,7 +57,7 @@ public class PlaceOfferActivity extends AppCompatActivity {
         webviewPlaceAnOffer.setVerticalScrollBarEnabled (true);
         webviewPlaceAnOffer.getSettings ().setCacheMode (webviewPlaceAnOffer.getSettings ().LOAD_NO_CACHE);
         webviewPlaceAnOffer.setWebChromeClient (new MyWebChromeClient ());
-        Log.e ("URL", "https://www.hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.BUYER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0));
+        Log.e ("URL", "https://www.hometrustaustin.com/buyers/app_view?property_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_ID, 0) + "&buyer_id=" + intent.getIntExtra (AppConfigTags.INSIDER_ID, 0) + "&auction_id=" + intent.getIntExtra (AppConfigTags.PROPERTY_BID_AUCTION_ID, 0));
         Utils.setTypefaceToAllViews (this, rlBack);
     
         if (Build.VERSION.SDK_INT >= 21) {

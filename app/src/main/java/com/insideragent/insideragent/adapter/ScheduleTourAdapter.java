@@ -156,7 +156,7 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                 if (numberOfUsers.equalsIgnoreCase ("")) {
                     Utils.showToast (activity, "Please Enter Number of Users", true);
                 } else if (lender_name.equalsIgnoreCase ("")) {
-                    Utils.showToast (activity, "Please Enter the Lender Name", true);
+                    Utils.showToast (activity, "Please Enter the buyer Name", true);
                 } else if (appraisal_access.equalsIgnoreCase ("")) {
                     Utils.showToast (activity, "Please Enter the Appraisal Access", true);
                 } else if (! numberOfUsers.equalsIgnoreCase ("") && ! lender_name.equalsIgnoreCase ("") && ! appraisal_access.equalsIgnoreCase ("")) {
@@ -226,10 +226,10 @@ public class ScheduleTourAdapter extends RecyclerView.Adapter<ScheduleTourAdapte
                 protected Map<String, String> getParams () throws AuthFailureError {
                     BuyerDetailsPref buyerDetailsPref = BuyerDetailsPref.getInstance ();
                     Map<String, String> params = new Hashtable<String, String> ();
-                    params.put (AppConfigTags.TYPE, "BookAppointment2");
+                    params.put (AppConfigTags.TYPE, "BookAppointment");
                     params.put (AppConfigTags.SCHEDULE_ACCESS_TOKEN_ID, String.valueOf (access_id));
                     params.put (AppConfigTags.SCHEDULE_NEW_PEOPLE, etNumberOfUsers);
-                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (activity, BuyerDetailsPref.BUYER_ID)));
+                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (activity, BuyerDetailsPref.INSIDER_ID)));
                     params.put (AppConfigTags.SCHEDULE_COMMENT, etComment);
                     params.put (AppConfigTags.LENDER_NAME, lender_name);
                     params.put (AppConfigTags.APPRAISAL_ACCESS, appraisal_access);

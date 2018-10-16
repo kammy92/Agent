@@ -181,7 +181,7 @@ public class ScheduleTourActivity extends AppCompatActivity {
                     BuyerDetailsPref buyerDetailsPref = BuyerDetailsPref.getInstance ();
                     params.put (AppConfigTags.TYPE, "property_access_token");
                     params.put (AppConfigTags.PROPERTY_ID, String.valueOf (property_id));
-                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (ScheduleTourActivity.this, BuyerDetailsPref.BUYER_ID)));
+                    params.put (AppConfigTags.BUYER_ID, String.valueOf (buyerDetailsPref.getIntPref (ScheduleTourActivity.this, BuyerDetailsPref.INSIDER_ID)));
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }

@@ -2,6 +2,7 @@ package com.insideragent.insideragent.activity;
 
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -100,6 +101,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     AppBarLayout appBar;
     
     setPropertyDetails setPropertyDetail;
+    TextView tvContactUs;
     
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -182,6 +184,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
       //  ivVideo = (ImageView) findViewById (R.id.ivVideo);
         appBar = (AppBarLayout) findViewById (R.id.appBar);
         tvTitle = (TextView) findViewById (R.id.tvTitle);
+        tvContactUs=(TextView)findViewById(R.id.tvContactUs);
     }
     
     private void initData () {
@@ -267,6 +270,33 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     e.printStackTrace ();
                     Utils.showToast (PropertyDetailActivity.this, "No Map Details", false);
                 }
+            }
+        });
+
+        tvContactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (buyerDetailsPref.getStringPref(PropertyDetailActivity.this, buyerDetailsPref.LOGIN_TYPE)) {
+                    case "BUYER":
+
+                        Intent intent5 = new Intent(PropertyDetailActivity.this, ContactUsActivity.class);
+                        startActivity(intent5);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        break;
+
+                    case "INSIDER":
+                        try{
+                            Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" ));
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "");
+                            intent.putExtra(Intent.EXTRA_TEXT, "");
+                            startActivity(intent);
+                        }catch(ActivityNotFoundException e){
+                            //TODO smth
+                        }
+
+                        break;
+                }
+
             }
         });
     
