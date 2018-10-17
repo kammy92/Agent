@@ -248,8 +248,6 @@ public class MainActivity extends AppCompatActivity {
                 getAllProperties();
             }
         });
-
-
         ivNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -684,6 +682,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build();
             headerResult.addProfiles(new ProfileDrawerItem()
+                    .withIcon(R.drawable.ic_user_name)
                     .withName(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_NAME))
                     .withEmail(buyerDetailsPref.getStringPref(MainActivity.this, BuyerDetailsPref.INSIDER_EMAIL)));
         }
@@ -721,6 +720,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case 6:
                                 Intent intent5 = new Intent(MainActivity.this, ContactUsActivity.class);
+                                intent5.putExtra(AppConfigTags.PROPERTY_ADDRESS,"");
                                 startActivity(intent5);
                                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
@@ -807,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
                         new PrimaryDrawerItem().withName("About Us").withIcon(FontAwesome.Icon.faw_info).withIdentifier(4).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
-                        new PrimaryDrawerItem().withName("Contact Us").withIcon(FontAwesome.Icon.faw_phone).withIdentifier(6).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Contact Agent").withIcon(FontAwesome.Icon.faw_phone).withIdentifier(6).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
                         new PrimaryDrawerItem().withName("FAQ").withIcon(FontAwesome.Icon.faw_question).withIdentifier(7).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
                         new PrimaryDrawerItem().withName("Sign Out").withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(10).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this))
                 );

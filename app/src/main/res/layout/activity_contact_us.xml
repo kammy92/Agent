@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:gravity="center"
-                        android:text="@string/activity_contact_us_title"
+                        android:text="Contact Agent"
                         android:textColor="@color/text_color_white"
                         android:textSize="@dimen/text_size_title"
                         android:textStyle="bold" />

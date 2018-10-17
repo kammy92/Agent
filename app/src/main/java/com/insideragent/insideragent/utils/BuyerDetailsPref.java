@@ -20,6 +20,8 @@ public class BuyerDetailsPref {
     public static String PROFILE_PRICE_RANGE = "profile_price_range";
     public static String ABOUT_US = "about_us";
     public static String ACTIVE_SESSION = "active_session";
+    public static String PROPERTY_ADDRESS="property_address";
+    public static String INSIDER_SLUG="insider_slug";
 
 
     public static String BUYER_USERNAME = "buyer_username";

@@ -157,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                                         buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.LOGIN_TYPE, jsonObj.getString(AppConfigTags.LOGIN_TYPE));
                                         buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.INSIDER_LOGO, jsonObj.getString(AppConfigTags.INSIDER_LOGO));
                                         buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.INSIDER_PHOTO, jsonObj.getString(AppConfigTags.INSIDER_PHOTO));
+                                        buyerDetailsPref.putStringPref(LoginActivity.this, BuyerDetailsPref.INSIDER_SLUG, jsonObj.getString(AppConfigTags.INSIDER_SLUG));
 
 
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

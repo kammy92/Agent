@@ -59,6 +59,7 @@ public class ContactUsActivity extends AppCompatActivity {
     CoordinatorLayout clMain;
     ProgressDialog progressDialog;
     BuyerDetailsPref buyerDetailsPref;
+    String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,11 +97,28 @@ public class ContactUsActivity extends AppCompatActivity {
         tvEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent1 = getIntent ();
+                address=intent1.getStringExtra (AppConfigTags.PROPERTY_ADDRESS);
+                Log.e("adress",address);
                 try {
+
+                    String mailto = "mailto:" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL)+
+                            "?cc=" + "" +
+                            "&subject=" + Uri.encode(address) +
+                            "&body=" + Uri.encode("");
+
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                    emailIntent.setData(Uri.parse(mailto));
+                    startActivity(emailIntent);
+
+
+
+
+/*
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL)));
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "111"+address);
                     intent.putExtra(Intent.EXTRA_TEXT, "");
-                    startActivity(intent);
+                    startActivity(intent);*/
                 } catch (ActivityNotFoundException e) {
                     //TODO smth
                 }
