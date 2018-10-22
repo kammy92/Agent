@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.insideragent.insideragent"
+<manifest package="com.insideragent.deals"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -17,14 +17,14 @@
     <uses-permission android:name="com.example.permission.MAPS_RECEIVE"/>
 
     <application
-        android:name=".app.AppController"
+        android:name="com.insideragent.deals.app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.insideragent.deals.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -33,43 +33,43 @@
         </activity>
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.insideragent.deals.activity.LoginActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.ScheduleTourActivity"
+            android:name="com.insideragent.deals.activity.ScheduleTourActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.PlaceOfferActivity"
+            android:name="com.insideragent.deals.activity.PlaceOfferActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.PropertyImageActivity" />
+            android:name="com.insideragent.deals.activity.PropertyImageActivity"/>
         <activity
-            android:name=".activity.PropertyDetailActivity"
+            android:name="com.insideragent.deals.activity.PropertyDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.PropertyLocationActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".activity.MyAppointmentActivity"
-            android:screenOrientation="portrait"/>
-
-
-        <activity
-            android:name=".activity.HowItWorksActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.AboutUsActivity"
+            android:name="com.insideragent.deals.activity.PropertyLocationActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.FAQActivity"
+            android:name="com.insideragent.deals.activity.MyAppointmentActivity"
+            android:screenOrientation="portrait"/>
+
+
+        <activity
+            android:name="com.insideragent.deals.activity.HowItWorksActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.ContactUsActivity"
+            android:name="com.insideragent.deals.activity.AboutUsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.insideragent.deals.activity.FAQActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.insideragent.deals.activity.ContactUsActivity"
             android:screenOrientation="portrait"/>
 
 
