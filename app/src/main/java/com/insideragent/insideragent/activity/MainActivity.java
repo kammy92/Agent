@@ -807,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem().withName("Home").withIcon(FontAwesome.Icon.faw_home).withIdentifier(1).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
                         new PrimaryDrawerItem().withName("About Us").withIcon(FontAwesome.Icon.faw_info).withIdentifier(4).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
-                        new PrimaryDrawerItem().withName("Contact Agent").withIcon(FontAwesome.Icon.faw_phone).withIdentifier(6).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
+                        new PrimaryDrawerItem().withName("Contact Us").withIcon(FontAwesome.Icon.faw_phone).withIdentifier(6).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
                         new PrimaryDrawerItem().withName("FAQ").withIcon(FontAwesome.Icon.faw_question).withIdentifier(7).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this)),
                         new PrimaryDrawerItem().withName("Sign Out").withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(10).withSelectable(false).withTypeface(SetTypeFace.getTypeface(MainActivity.this))
                 );

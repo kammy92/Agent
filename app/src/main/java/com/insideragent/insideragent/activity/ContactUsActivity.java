@@ -14,6 +14,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -97,12 +99,12 @@ public class ContactUsActivity extends AppCompatActivity {
         tvEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = getIntent ();
-                address=intent1.getStringExtra (AppConfigTags.PROPERTY_ADDRESS);
-                Log.e("adress",address);
+                Intent intent1 = getIntent();
+                address = intent1.getStringExtra(AppConfigTags.PROPERTY_ADDRESS);
+                Log.e("adress", address);
                 try {
 
-                    String mailto = "mailto:" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL)+
+                    String mailto = "mailto:" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL) +
                             "?cc=" + "" +
                             "&subject=" + Uri.encode(address) +
                             "&body=" + Uri.encode("");
@@ -111,14 +113,6 @@ public class ContactUsActivity extends AppCompatActivity {
                     emailIntent.setData(Uri.parse(mailto));
                     startActivity(emailIntent);
 
-
-
-
-/*
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL)));
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "111"+address);
-                    intent.putExtra(Intent.EXTRA_TEXT, "");
-                    startActivity(intent);*/
                 } catch (ActivityNotFoundException e) {
                     //TODO smth
                 }
@@ -128,25 +122,17 @@ public class ContactUsActivity extends AppCompatActivity {
         tvCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (ActivityCompat.checkSelfPermission(ContactUsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-
-                    Intent i = new Intent(Intent.ACTION_DIAL);
-                    String p = "tel:" + ((buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_MOBILE)));
-                    i.setData(Uri.parse(p));
-                    startActivity(i);
-                   /* Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse(""+buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_MOBILE)));
-                    startActivity(callIntent);*/
-                    return;
+                try {
+                    Uri uri = Uri.parse("smsto:"+(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_MOBILE)));
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                    intent.putExtra("sms_body", "The SMS text");
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "SMS faild, please try again later!", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
                 }
+
+
 
             }
         });
@@ -159,9 +145,11 @@ public class ContactUsActivity extends AppCompatActivity {
                     etName.setError(null);
                 }
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -214,7 +202,7 @@ public class ContactUsActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-        rlBack.setOnClickListener (new View.OnClickListener () {
+        rlBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -226,24 +214,24 @@ public class ContactUsActivity extends AppCompatActivity {
     private void contactDetailsSendToServer(final String name, final String email, final String number, final String message) {
         if (NetworkConnection.isNetworkAvailable(ContactUsActivity.this)) {
             Utils.showProgressDialog(progressDialog, getResources().getString(R.string.progress_dialog_text_please_wait), true);
-            Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_CONTACT_US, true);
+            Utils.showLog(Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_CONTACT_US, true);
             StringRequest strRequest1 = new StringRequest(Request.Method.POST, AppConfigURL.URL_CONTACT_US,
                     new com.android.volley.Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Utils.showLog (Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
+                            Utils.showLog(Log.INFO, AppConfigTags.SERVER_RESPONSE, response, true);
                             if (response != null) {
                                 try {
                                     JSONObject jsonObj = new JSONObject(response);
                                     boolean error = jsonObj.getBoolean(AppConfigTags.ERROR);
                                     String message = jsonObj.getString(AppConfigTags.MESSAGE);
                                     if (!error) {
-                                        Utils.showSnackBar (ContactUsActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
-                                        final Handler handler = new Handler ();
-                                        handler.postDelayed (new Runnable () {
+                                        Utils.showSnackBar(ContactUsActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
+                                        final Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
                                             @Override
-                                            public void run () {
-                                                finish ();
+                                            public void run() {
+                                                finish();
                                             }
                                         }, 1000);
                                     } else {
@@ -273,11 +261,11 @@ public class ContactUsActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> params = new Hashtable<String, String>();
-                    params.put (AppConfigTags.NAME, name);
-                    params.put (AppConfigTags.EMAIL, email);
-                    params.put (AppConfigTags.MOBILE, number);
-                    params.put (AppConfigTags.MESSAGE, message);
-                    params.put (AppConfigTags.TYPE, "contact_us");
+                    params.put(AppConfigTags.NAME, name);
+                    params.put(AppConfigTags.EMAIL, email);
+                    params.put(AppConfigTags.MOBILE, number);
+                    params.put(AppConfigTags.MESSAGE, message);
+                    params.put(AppConfigTags.TYPE, "contact_us");
                     Utils.showLog(Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
                 }
@@ -302,13 +290,13 @@ public class ContactUsActivity extends AppCompatActivity {
             });
         }
     }
-    
+
     @Override
-    public void onBackPressed () {
-        finish ();
-        overridePendingTransition (R.anim.slide_in_left, R.anim.slide_out_right);
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
-    
+
 }
 
 

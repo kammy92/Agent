@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:gravity="center"
-                        android:text="Contact Agent"
+                        android:text="Contact Us"
                         android:textColor="@color/text_color_white"
                         android:textSize="@dimen/text_size_title"
                         android:textStyle="bold" />
@@ -191,7 +191,7 @@
                     android:elevation="@dimen/button_elevation"
                     android:gravity="center"
                     android:padding="@dimen/button_padding"
-                    android:text="CALL"
+                    android:text="SMS"
                     android:textColor="@color/text_color_white"
                     android:textSize="@dimen/text_size_extra_large"
                     android:textStyle="bold"
