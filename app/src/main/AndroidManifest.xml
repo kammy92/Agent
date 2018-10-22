@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
-    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
 
     <!-- Maps API needs OpenGL ES 2.0. -->
@@ -24,26 +24,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.insideragent.deals.activity.MainActivity">
+        <activity
+            android:name="com.insideragent.deals.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.insideragent.deals.activity.LoginActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.insideragent.deals.activity.ScheduleTourActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.insideragent.deals.activity.PlaceOfferActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.insideragent.deals.activity.PropertyImageActivity"/>
         <activity
@@ -52,45 +50,28 @@
         <activity
             android:name="com.insideragent.deals.activity.PropertyLocationActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.insideragent.deals.activity.MyAppointmentActivity"
             android:screenOrientation="portrait"/>
-
-
         <activity
             android:name="com.insideragent.deals.activity.HowItWorksActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.insideragent.deals.activity.AboutUsActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.insideragent.deals.activity.FAQActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.insideragent.deals.activity.ContactUsActivity"
             android:screenOrientation="portrait"/>
-
-
-
-
-
-
-
-
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version"/>
-
-
-    <meta-data
-        android:name="com.bugsnag.android.API_KEY"
-        android:value="b2b4c756b3b88a72891033fa275309db"/>
-
-    <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyAGBa1sMhoI9snPSAJWQt8pGiLZfSmO5m0"/>
-
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.bugsnag.android.API_KEY"
+            android:value="b2b4c756b3b88a72891033fa275309db"/>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyAGBa1sMhoI9snPSAJWQt8pGiLZfSmO5m0"/>
     </application>
-
 </manifest>
