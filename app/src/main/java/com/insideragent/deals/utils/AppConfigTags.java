@@ -177,6 +177,9 @@ public class AppConfigTags {
     public static String INSIDER_LOGO = "insider_logo";
     public static String INSIDER_PHOTO = "insider_photo";
     public static String INSIDER_SLUG="insider_slug";
+    
+    public static String INSIDER_USERNAME = "insider_username";
+    public static String INSIDER_PASSWORD = "insider_password";
 }
 
 

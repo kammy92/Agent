@@ -30,6 +30,7 @@ import com.insideragent.deals.utils.AppConfigURL;
 import com.insideragent.deals.utils.BuyerDetailsPref;
 import com.insideragent.deals.utils.Constants;
 import com.insideragent.deals.utils.NetworkConnection;
+import com.insideragent.deals.utils.PropertyDetailsPref;
 import com.insideragent.deals.utils.Utils;
 
 import org.json.JSONObject;
@@ -54,6 +55,7 @@ public class ContactUsActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     BuyerDetailsPref buyerDetailsPref;
     String address;
+    PropertyDetailsPref propertyDetailsPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class ContactUsActivity extends AppCompatActivity {
 
     private void initData() {
         buyerDetailsPref = BuyerDetailsPref.getInstance();
+        propertyDetailsPref = PropertyDetailsPref.getInstance ();
         progressDialog = new ProgressDialog(ContactUsActivity.this);
         Log.e("MOBILE", "" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_MOBILE));
         etName.setText(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.BUYER_NAME));
@@ -99,7 +102,14 @@ public class ContactUsActivity extends AppCompatActivity {
                     String mailto = "mailto:" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL) +
                             "?cc=" + "" +
                             "&subject=" + Uri.encode(address) +
-                            "&body=" + Uri.encode("");
+                            "&body=" + Uri.encode ("Hi! This is " + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_NAME) + ". I've found a property you'll be interested in . Check out the property details here : "
+                            + "https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (ContactUsActivity.this, PropertyDetailsPref.PROPERTY_ID)
+                            + ". Download the insider agent app to view all of my off market properties " + "\n\nClick here for Android : " + "https://play.google.com/store/apps/details?id=com.clearsale"
+                            + "\n Click here for iOS :" + "https://itunes.apple.com/us/app/hometrust-real-estate/id1295116600?mt=8" +
+                            "\n\nFollowing are the buyer credentials \n\n" +
+                            "Username : " + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
+                            "Password : " + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_PASSWORD)
+                    );
 
                     Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                     emailIntent.setData(Uri.parse(mailto));

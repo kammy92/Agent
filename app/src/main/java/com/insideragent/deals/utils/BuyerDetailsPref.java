@@ -32,7 +32,10 @@ public class BuyerDetailsPref {
     public static String INSIDER_MOBILE = "insider_mobile";
     public static String INSIDER_LOGO = "insider_logo";
     public static String INSIDER_PHOTO = "insider_photo";
-
+    
+    public static String INSIDER_USERNAME = "insider_username";
+    public static String INSIDER_PASSWORD = "insider_password";
+    
     
     public static String FACE_PAGE_URL = "facebook_page_url";
     public static String FACE_PAGE_NAME = "facebook_page_name";
