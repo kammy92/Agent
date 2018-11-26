@@ -755,7 +755,7 @@ public class MainActivity extends AppCompatActivity {
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
                                 break;
                             case 6:
-                                Intent intent5 = new Intent (MainActivity.this, ContactUsAdminActivity.class);
+                                Intent intent5 = new Intent (MainActivity.this, ContactUsActivity.class);
                                 startActivity (intent5);
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
@@ -821,6 +821,12 @@ public class MainActivity extends AppCompatActivity {
                                 dialIntent.setData (Uri.parse ("tel:" + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_MOBILE)));
                                 startActivity (dialIntent);
                                 break;
+    
+                            case 17:
+                                Intent intent17 = new Intent (MainActivity.this, ContactUsAdminActivity.class);
+                                startActivity (intent17);
+                                overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
+                                break;
                         }
                         return false;
                     }
@@ -836,7 +842,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem ().withName ("My Scheduled Access").withIcon (FontAwesome.Icon.faw_calendar).withIdentifier (11).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("How It Works").withIcon (FontAwesome.Icon.faw_handshake_o).withIdentifier (3).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Share This App").withIcon (FontAwesome.Icon.faw_share).withIdentifier (2).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Contact Us (Home Trust)").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("Contact Us (Home Trust)").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (17).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Contact Your Buyer").withIcon (FontAwesome.Icon.faw_key).withIdentifier (14).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
                 );

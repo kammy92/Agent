@@ -94,14 +94,15 @@ public class ContactUsActivity extends AppCompatActivity {
         tvEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = getIntent();
-                address = intent1.getStringExtra(AppConfigTags.PROPERTY_ADDRESS);
-                Log.e("adress", address);
-                try {
+                // Intent intent1 = getIntent();
+                //  "&subject=" + Uri.encode (address) +
+                //  address = intent1.getStringExtra(AppConfigTags.PROPERTY_ADDRESS);
+                //  Log.e("adress", address);
+                /*try {
 
                     String mailto = "mailto:" + buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL) +
                             "?cc=" + "" +
-                            "&subject=" + Uri.encode(address) +
+                            "&subject=" + Uri.encode("") +
                             "&body=" + Uri.encode ("Hi! This is " + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_NAME) + ". I've found a property you'll be interested in . Check out the property details here : "
                             + "https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (ContactUsActivity.this, PropertyDetailsPref.PROPERTY_ID)
                             + ". Download the insider agent app to view all of my off market properties " + "\n\nClick here for Android : " + "https://play.google.com/store/apps/details?id=com.clearsale"
@@ -109,12 +110,21 @@ public class ContactUsActivity extends AppCompatActivity {
                             "\n\nFollowing are the buyer credentials \n\n" +
                             "Username : " + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
                             "Password : " + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_PASSWORD)
-                    );
+                    );*/
+    
+                /*Intent emailIntent = new Intent (Intent.ACTION_SEND);
+                emailIntent.setType ("text/plain");
+                startActivity (emailIntent);*/
 
-                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                    emailIntent.setData(Uri.parse(mailto));
-                    startActivity(emailIntent);
-
+                /*} catch (ActivityNotFoundException e) {
+                    //TODO smth
+                }*/
+    
+                try {
+                    Intent intent = new Intent (Intent.ACTION_VIEW, Uri.parse ("mailto:" + ""));
+                    intent.putExtra (Intent.EXTRA_SUBJECT, "");
+                    intent.putExtra (Intent.EXTRA_TEXT, "");
+                    startActivity (intent);
                 } catch (ActivityNotFoundException e) {
                     //TODO smth
                 }
@@ -127,7 +137,6 @@ public class ContactUsActivity extends AppCompatActivity {
                 try {
                     Uri uri = Uri.parse("smsto:"+(buyerDetailsPref.getStringPref(ContactUsActivity.this, BuyerDetailsPref.INSIDER_MOBILE)));
                     Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-                    intent.putExtra("sms_body", "The SMS text");
                     startActivity(intent);
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "SMS faild, please try again later!", Toast.LENGTH_LONG).show();

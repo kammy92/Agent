@@ -306,7 +306,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
                             shareIntent.putExtra(Intent.EXTRA_TEXT, "Hi! This is " + buyerDetailsPref.getStringPref(PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_NAME) + ". I've found a property you'll be interested in . Check out the property details here : "
                                     + "https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref(PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref(PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID)
                                     + ". Download the insider agent app to view all of my off market properties " + "\n\nClick here for Android : " + "https://play.google.com/store/apps/details?id=com.clearsale"
-                                    + "\n Click here for iOS :" + "https://itunes.apple.com/us/app/hometrust-real-estate/id1295116600?mt=8");
+                                    + "\n Click here for iOS :" + "https://itunes.apple.com/us/app/hometrust-real-estate/id1295116600?mt=8" + "\n\nFollowing are the buyer credentials \n\n" +
+                                    "Username : " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
+                                    "Password : " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_PASSWORD));
                             startActivity(shareIntent);
 
 
