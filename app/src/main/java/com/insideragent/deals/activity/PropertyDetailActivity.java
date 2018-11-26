@@ -299,14 +299,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
                         break;
 
                     case "INSIDER":
-
-
                         try {
-
-
                             final Intent shareIntent = new Intent(Intent.ACTION_SENDTO,
                                     Uri.parse("mailto:"));
-                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "The Subject");
+                            shareIntent.putExtra (Intent.EXTRA_SUBJECT, "");// property address
                             shareIntent.putExtra(Intent.EXTRA_TEXT, "Hi! This is " + buyerDetailsPref.getStringPref(PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_NAME) + ". I've found a property you'll be interested in . Check out the property details here : "
                                     + "https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref(PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref(PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID)
                                     + ". Download the insider agent app to view all of my off market properties " + "\n\nClick here for Android : " + "https://play.google.com/store/apps/details?id=com.clearsale"
