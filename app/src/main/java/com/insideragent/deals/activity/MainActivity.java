@@ -219,8 +219,6 @@ public class MainActivity extends AppCompatActivity {
                 Glide.with (MainActivity.this)
                         .load ("" + url)
                         .into (ivImage);
-                
-                
             } catch (MalformedURLException e) {
                 e.printStackTrace ();
             } catch (URISyntaxException e) {
@@ -757,8 +755,7 @@ public class MainActivity extends AppCompatActivity {
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);*/
                                 break;
                             case 6:
-                                Intent intent5 = new Intent (MainActivity.this, ContactUsActivity.class);
-                                intent5.putExtra (AppConfigTags.PROPERTY_ADDRESS, "");
+                                Intent intent5 = new Intent (MainActivity.this, ContactUsAdminActivity.class);
                                 startActivity (intent5);
                                 overridePendingTransition (R.anim.slide_in_right, R.anim.slide_out_left);
                                 break;
@@ -819,7 +816,11 @@ public class MainActivity extends AppCompatActivity {
                                 shareApp.putExtra (Intent.EXTRA_TEXT, "http://play.google.com/store/apps/details?id=" + getPackageName ());
                                 startActivity (Intent.createChooser (shareApp, "Share"));*/
                                 break;
-        
+                            case 16:
+                                Intent dialIntent = new Intent (Intent.ACTION_DIAL);
+                                dialIntent.setData (Uri.parse ("tel:" + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_MOBILE)));
+                                startActivity (dialIntent);
+                                break;
                         }
                         return false;
                     }
@@ -846,6 +847,7 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem ().withName ("Home").withIcon (FontAwesome.Icon.faw_home).withIdentifier (1).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("About Us").withIcon (FontAwesome.Icon.faw_info).withIdentifier (4).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Contact Us").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("Call Agent").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (16).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("FAQ").withIcon (FontAwesome.Icon.faw_question).withIdentifier (7).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
                 );

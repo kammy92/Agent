@@ -70,8 +70,7 @@
                             android:textColor="@color/text_color_white"
                             android:textSize="@dimen/text_size_title"
                             android:textStyle="bold"/>
-
-                        <ImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_alignParentEnd="true"
@@ -81,7 +80,6 @@
                             android:src="@drawable/ic_user_name"
                             android:background="@drawable/circle_image"
                             android:padding="2dp"/>
-
                     </RelativeLayout>
 
                 </RelativeLayout>
