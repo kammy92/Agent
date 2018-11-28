@@ -121,7 +121,7 @@ public class ContactUsActivity extends AppCompatActivity {
                 }*/
     
                 try {
-                    Intent intent = new Intent (Intent.ACTION_VIEW, Uri.parse ("mailto:" + ""));
+                    Intent intent = new Intent (Intent.ACTION_VIEW, Uri.parse ("mailto:" + buyerDetailsPref.getStringPref (ContactUsActivity.this, BuyerDetailsPref.INSIDER_EMAIL)));
                     intent.putExtra (Intent.EXTRA_SUBJECT, "");
                     intent.putExtra (Intent.EXTRA_TEXT, "");
                     startActivity (intent);
@@ -142,9 +142,6 @@ public class ContactUsActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "SMS faild, please try again later!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
-
-
-
             }
         });
 

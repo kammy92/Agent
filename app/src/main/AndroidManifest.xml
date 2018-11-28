@@ -21,7 +21,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -46,7 +45,21 @@
             android:name="com.insideragent.deals.activity.PropertyImageActivity"/>
         <activity
             android:name="com.insideragent.deals.activity.PropertyDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <action android:name="android.intent.action.SEND_MULTIPLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:mimeType="image/jpg"/>
+                <data android:mimeType="image/jpeg"/>
+                <data android:mimeType="image/bmp"/>
+                <data android:mimeType="image/png"/>
+                <data android:mimeType="video/mp4"/>
+                <data android:mimeType="audio/m4a"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.insideragent.deals.activity.PropertyLocationActivity"
             android:screenOrientation="portrait"/>

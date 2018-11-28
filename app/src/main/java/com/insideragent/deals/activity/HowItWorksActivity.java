@@ -88,9 +88,9 @@ public class HowItWorksActivity extends AppCompatActivity {
     private void initData() {
         buyerDetailsPref = BuyerDetailsPref.getInstance ();
         howItWorkList.add (new HowItWork (1, "Step 1", "Join our preferred buyers list and tell us what kinds of properties you are looking for.", "", R.drawable.img1));
-        howItWorkList.add (new HowItWork (2, "Step 2", "With our proprietary marketing systems we find the best properties at great prices and pass those deals on to you.", "", R.drawable.img2));
-        howItWorkList.add (new HowItWork (3, "Step 3", "As soon as we have a new property under contract in your area, you will receive an immediate alert and email allowing you to preview the property details and schedule a time to access the property.", "", R.drawable.img3));
-        howItWorkList.add (new HowItWork (4, "Step 4", "Once you have viewed a property, you are eligible to place an offer directly on this app.", "", R.drawable.img4));
+        howItWorkList.add (new HowItWork (2, "Step 2", "Share HomeTrust’s deals with your buyers as if they are special, off market deals directly from you & do it all from your personalized Insider Agent Deals app.", "", R.drawable.img2));
+        howItWorkList.add (new HowItWork (3, "Step 3", "If your buyer is interested in buying a property, you can schedule access from the Insider Agent Deals app.", "", R.drawable.img3));
+        howItWorkList.add (new HowItWork (4, "Step 4", "Once you and your buyer(s) have viewed a property, you are eligible to place an offer directly from this app.", "", R.drawable.img4));
 
         addBottomDots(0);
 
