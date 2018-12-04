@@ -2,16 +2,14 @@ package com.insideragent.deals.utils;
 
 public class AppConfigURL {
       // public static String BASE_URL = "https://project-clearsale-cammy92.c9users.io/";
-       public static String BASE_URL = "http://34.210.168.225/co/";
-    //public static String BASE_URL = "https://www.clearsale.com/";
+      //   public static String BASE_URL = "http://34.210.168.225/co/";
+      public static String BASE_URL = "https://www.clearsale.com/";
 
-    public static String PLACE_OFFER_URL = "http://34.210.168.225/co/buyers/app_view_insider?property_id=";
-
-
-
-
+//    public static String PLACE_OFFER_URL = "http://34.210.168.225/co/buyers/app_view_insider?property_id=";
     
-
+    public static String PLACE_OFFER_URL = "https://www.hometrustaustin.com/buyers/app_view_insider?property_id=";
+    
+    
     //public static String URL_SIGN_IN = BASE_URL + "csvbuyer/buyers/app_insider_login";
     public static String URL_SIGN_IN = BASE_URL + "buyers/app_insider_login";
 
