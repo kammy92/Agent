@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
                                     String message = jsonObj.getString (AppConfigTags.MESSAGE);
                                     if (! error) {
                                         buyerDetailsPref.putStringPref (MainActivity.this, BuyerDetailsPref.ABOUT_US, jsonObj.getString (AppConfigTags.ABOUT_US));
-        
+    
                                         JSONArray jsonArrayProperty = jsonObj.getJSONArray (AppConfigTags.PROPERTIES);
                                         for (int i = 0; i < jsonArrayProperty.length (); i++) {
                                             JSONObject jsonObjectProperty = jsonArrayProperty.getJSONObject (i);
@@ -403,10 +403,10 @@ public class MainActivity extends AppCompatActivity {
                                                     jsonObjectProperty.getString (AppConfigTags.PROPERTY_ADDRESS),
                                                     jsonObjectProperty.getString (AppConfigTags.PROPERTY_CITY),
                                                     jsonObjectProperty.getBoolean (AppConfigTags.PROPERTY_IS_OFFER), false);
-            
+    
                                             JSONArray jsonArrayPropertyImages = jsonObjectProperty.getJSONArray (AppConfigTags.PROPERTY_IMAGES);
                                             ArrayList<String> propertyImages = new ArrayList<> ();
-            
+    
                                             for (int j = 0; j < jsonArrayPropertyImages.length (); j++) {
                                                 JSONObject jsonObjectImages = jsonArrayPropertyImages.getJSONObject (j);
                                                 propertyImages.add (jsonObjectImages.getString (AppConfigTags.PROPERTY_IMAGE));
@@ -414,17 +414,17 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                             propertyList.add (i, property);
                                         }
-        
+    
                                         propertyAdapter.notifyDataSetChanged ();
-        
+    
                                         if (jsonArrayProperty.length () > 0) {
                                             if (filterDetailsPref.getBooleanPref (MainActivity.this, FilterDetailsPref.FILTER_APPLIED))
                                                 rlNoResultFound.setVisibility (View.GONE);
                                             swipeRefreshLayout.setRefreshing (false);
                                         }
                                     } else {
-        
-        
+    
+    
                                         Utils.showSnackBar (MainActivity.this, clMain, message, Snackbar.LENGTH_LONG, null, null);
                                         if (message.equalsIgnoreCase ("no property available"))
                                             rlNoResultFound.setVisibility (View.VISIBLE);
@@ -795,28 +795,29 @@ public class MainActivity extends AppCompatActivity {
                             case 13:
     
                                 break;
-        
+    
                             case 14:
                                 try {
                                     Intent intent = new Intent (Intent.ACTION_VIEW, Uri.parse ("mailto:"));
                                     intent.putExtra (Intent.EXTRA_SUBJECT, "Off Market Properties");
                                     intent.putExtra (Intent.EXTRA_TEXT, "Hello,\n\n" +
                                             "I've found some properties I think you'll be interested in. Contact me to discuss these great, off market deals." + "\n\n" +
-                                            "Download my Insider Agent Deals app & never miss a deal again.  View all of my off market properties as they become available." + "\n\n" +
-                                            "Download now https://www.insideragent.com/8cg7il" + "\n" +
-                                            "Your Username: " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
-                                            "Your Password: " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_PASSWORD) + "\n\n" +
                                             "Thank you, " + "\n" +
                                             buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_NAME) + "\n" +
-                                            buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_MOBILE));
+                                            buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_MOBILE) + "\n\n" +
+                                            "Download my Insider Agent Deals app & never miss a deal again!" + "\n" +
+                                            "View all of my off market properties as they become available." + "\n\n" +
+                                            "Download now https://www.insideragent.com/8cg7il" + "\n" +
+                                            "Your Username: " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
+                                            "Your Password: " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_PASSWORD));
                                     startActivity (intent);
                                 } catch (ActivityNotFoundException e) {
                                     //TODO smth
                                 }
-            
-            
-                                break;
         
+        
+                                break;
+    
                             case 15:
                                /* Intent shareApp = new Intent ();
                                 shareApp.setAction (Intent.ACTION_SEND);
@@ -860,8 +861,8 @@ public class MainActivity extends AppCompatActivity {
                 drawerBuilder.addDrawerItems (
                         new PrimaryDrawerItem ().withName ("Home").withIcon (FontAwesome.Icon.faw_home).withIdentifier (1).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("About Us").withIcon (FontAwesome.Icon.faw_info).withIdentifier (4).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Contact Us").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Call Agent").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (16).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("Contact Me").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new PrimaryDrawerItem ().withName ("Call Me").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (16).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("FAQ").withIcon (FontAwesome.Icon.faw_question).withIdentifier (7).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
                 );

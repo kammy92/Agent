@@ -246,7 +246,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                         getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                         getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
                     }
-        
+    
                     collapsingToolbarLayout.setContentScrim (null);
                     collapsingToolbarLayout.setStatusBarScrim (null);
                 } else {
@@ -306,7 +306,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
 //                            shareIntent.addFlags (Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //                            shareIntent.setDataAndType (imageUri, "image/png");
                             startActivity (shareIntent);
-        
+    
                         } catch (ActivityNotFoundException e) {
                             //TODO smth
                         }
@@ -316,27 +316,28 @@ public class PropertyDetailActivity extends AppCompatActivity {
                             final Intent shareIntent = new Intent (Intent.ACTION_SENDTO, Uri.parse ("mailto:"));
                             shareIntent.putExtra (Intent.EXTRA_SUBJECT, propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1) + ", " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2));// property address
                             shareIntent.putExtra (Intent.EXTRA_TEXT, "Hello,\n\n" +
-                                    "Here's a property I think you'll like. Contact me if you are interested in viewing this off market property.\n\n" +
+                                    "Here's a property I think you'll be interested in. Contact me to view this off market property.\n\n" +
                                     "Property Address: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1) + ", " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2) + "\n\n" +
                                     "Your Buy Price: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_PRICE) + "\n" +
                                     "Beds: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BEDROOM) + "\n" +
                                     "Baths: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BATHROOM) + "\n" +
                                     "Sqft: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AREA) + "\n\n" +
                                     "View property details " + "https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
-                                    "Download my Insider Agent Deals app & never miss a deal again.  View all of my off market properties as they become available." + "\n\n" +
-                                    "Download now https://www.insideragent.com/8cg7il" + "\n" +
-                                    "Your Username: " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
-                                    "Your Password: " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_PASSWORD) + "\n\n" +
                                     "Thank you, " + "\n" +
                                     buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_NAME) + "\n" +
-                                    buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_MOBILE));
+                                    buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_MOBILE) + "\n\n" +
+                                    "Download my Insider Agent Deals app & never miss a deal again!" + "\n" +
+                                    "View all of my off market properties as they become available" + "\n\n" +
+                                    "Download now https://www.insideragent.com/8cg7il" + "\n" +
+                                    "Your Username: " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
+                                    "Your Password: " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_PASSWORD));
 
 //                            Uri imageUri = Uri.parse ("android.resource://" + getPackageName ()+ "/drawable/" + "no_image_placeholder.png");
 //                            shareIntent.putExtra (Intent.EXTRA_STREAM, imageUri);
 //                            shareIntent.addFlags (Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //                            shareIntent.setDataAndType (imageUri, "image/png");
                             startActivity (shareIntent);
-
+    
                         } catch (ActivityNotFoundException e) {
                             //TODO smth
                         }
@@ -365,8 +366,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
                         try {
                             Uri uri = Uri.parse ("smsto:");
                             Intent intent = new Intent (Intent.ACTION_SENDTO, uri);
-                            intent.putExtra ("sms_body", "Hello,\nHere’s are a property I think you’ll like. Contact me if you’re interested in viewing this off market listing.\n\n" +
-                                    "Click here to view property https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
+                            intent.putExtra ("sms_body", "Here's a property I think you'll be interested in. Contact me to view this off market property.\n" +
+                                    propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1) + ", " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2) + "\n" +
+                                    "View property details: https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
                                     "- " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_NAME) + "");
                             startActivity (intent);
                         } catch (Exception e) {

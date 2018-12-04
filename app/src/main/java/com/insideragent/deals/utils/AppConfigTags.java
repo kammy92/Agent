@@ -68,7 +68,7 @@ public class AppConfigTags {
     public static String FIREBASE_ID = "firebase_id";
     
     
-    public static String BUYER_ID = "buyer_id";
+    public static String BUYER_ID = "insider_id";
     public static String BUYER_DEVICE = "buyer_device";
     public static String BUYER_NAME = "buyer_name";
     public static String BUYER_EMAIL = "buyer_email";
