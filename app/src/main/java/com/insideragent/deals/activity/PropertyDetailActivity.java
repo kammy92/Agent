@@ -316,7 +316,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                             final Intent shareIntent = new Intent (Intent.ACTION_SENDTO, Uri.parse ("mailto:"));
                             shareIntent.putExtra (Intent.EXTRA_SUBJECT, propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1) + ", " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2));// property address
                             shareIntent.putExtra (Intent.EXTRA_TEXT, "Hello,\n\n" +
-                                    "Here's a property I think you'll be interested in. Contact me to view this off market property.\n\n" +
+                                    "Here's a property I think you'll be interested in. Contact me to view this off market deal.\n\n" +
                                     "Property Address: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1) + ", " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2) + "\n\n" +
                                     "Your Buy Price: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_PRICE) + "\n" +
                                     "Beds: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BEDROOM) + "\n" +
@@ -366,7 +366,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                         try {
                             Uri uri = Uri.parse ("smsto:");
                             Intent intent = new Intent (Intent.ACTION_SENDTO, uri);
-                            intent.putExtra ("sms_body", "Here's a property I think you'll be interested in. Contact me to view this off market property.\n" +
+                            intent.putExtra ("sms_body", "Here's a property I think you'll be interested in. Contact me to view this off market deal.\n" +
                                     propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1) + ", " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2) + "\n" +
                                     "View property details: https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
                                     "- " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_NAME) + "");

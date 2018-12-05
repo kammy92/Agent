@@ -10,8 +10,8 @@ public class AppConfigURL {
     public static String PLACE_OFFER_URL = "https://www.hometrustaustin.com/buyers/app_view_insider?property_id=";
     
     
-    //public static String URL_SIGN_IN = BASE_URL + "csvbuyer/buyers/app_insider_login";
-    public static String URL_SIGN_IN = BASE_URL + "buyers/app_insider_login";
+    public static String URL_SIGN_IN = BASE_URL + "csvbuyer/buyers/app_insider_login";
+    //public static String URL_SIGN_IN = BASE_URL + "buyers/app_insider_login";
 
     public static String URL_TESTIMONIALS = BASE_URL + "api/";
     public static String URL_PROPERTY_LIST = BASE_URL + "api_insider/index_insider.php";
