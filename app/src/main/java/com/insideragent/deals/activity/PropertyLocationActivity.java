@@ -148,7 +148,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
     
     
         mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng(latitude, longitude), 13.0f));
-        
+        /*
         mAddress = mMap.addMarker (
                 new MarkerOptions().position (new LatLng(latitude, longitude))
                         .title (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1)
@@ -156,6 +156,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                         .draggable (false)
                         .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_map_marker))
         );
+        */
         mAddress.setTag (0);
         mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng(latitude, longitude), 15.0f));
         mMap.setOnMarkerClickListener (this);

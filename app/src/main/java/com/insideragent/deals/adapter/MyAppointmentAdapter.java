@@ -94,7 +94,7 @@ public class MyAppointmentAdapter extends RecyclerView.Adapter<MyAppointmentAdap
                 break;
     
             case "4":
-                holder.tvStatus.setText ("Access Cancelled By You");
+                holder.tvStatus.setText ("Waiting List");
                 holder.tvCancelRequest.setVisibility (View.GONE);
                 holder.tvStatus.setTextColor (activity.getResources ().getColor (R.color.mb_red));
                 break;
