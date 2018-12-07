@@ -141,15 +141,15 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                                 .draggable (false)
                                 .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_comps_marker))
                 );
+                mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng (latitude, longitude), 13.0f));
             }
         } catch (JSONException e) {
             e.printStackTrace ();
         }
     
     
-        mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng(latitude, longitude), 13.0f));
         /*
-        mAddress = mMap.addMarker (
+        mMap.addMarker (
                 new MarkerOptions().position (new LatLng(latitude, longitude))
                         .title (propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1)
                                 + ", " + propertyDetailsPref.getStringPref (PropertyLocationActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2))
@@ -157,8 +157,7 @@ public class PropertyLocationActivity extends AppCompatActivity implements Googl
                         .icon (BitmapDescriptorFactory.fromResource (R.drawable.ic_map_marker))
         );
         */
-        mAddress.setTag (0);
-        mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (new LatLng(latitude, longitude), 15.0f));
+//        mAddress.setTag (0);
         mMap.setOnMarkerClickListener (this);
     }
     
