@@ -736,7 +736,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent shareApp = new Intent ();
                                 shareApp.setAction (Intent.ACTION_SEND);
                                 shareApp.setType ("text/plain");
-                                shareApp.putExtra (Intent.EXTRA_TEXT, "Download my Insider Agent Deals app & never miss a deal again.  View all of my off market properties as they become available. Link: https://www.insideragent.com/8cg7il");
+                                shareApp.putExtra (Intent.EXTRA_TEXT, "Download my Insider Agent Deals app & never miss a deal again.  View all of my off market properties as they become available. Link: https://www.insideragentdeals.com/8cg7il");
                                 startActivity (Intent.createChooser (shareApp, "Share"));
                                 break;
                             case 3:
