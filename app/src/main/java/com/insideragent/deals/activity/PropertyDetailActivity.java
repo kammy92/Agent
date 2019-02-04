@@ -328,7 +328,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                     buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_MOBILE) + "\n\n" +
                                     "Download my Insider Agent Deals app & never miss a deal again!" + "\n" +
                                     "View all of my off market properties as they become available" + "\n\n" +
-                                    "Download now https://www.insideragent.com/8cg7il" + "\n" +
+                                    "Download now https://www.insideragentdeals.com/8cg7il" + "\n" +
                                     "Your Username: " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_USERNAME) + "\n" +
                                     "Your Password: " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_PASSWORD));
 
