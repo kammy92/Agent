@@ -322,7 +322,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                                     "Beds: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BEDROOM) + "\n" +
                                     "Baths: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_BATHROOM) + "\n" +
                                     "Sqft: " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_AREA) + "\n\n" +
-                                    "View property details " + "https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
+//                                    "View property details " + "https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
                                     "Thank you, " + "\n" +
                                     buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_NAME) + "\n" +
                                     buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_MOBILE) + "\n\n" +
@@ -368,7 +368,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                             Intent intent = new Intent (Intent.ACTION_SENDTO, uri);
                             intent.putExtra ("sms_body", "Here's a property I think you'll be interested in. Contact me to view this off market deal.\n" +
                                     propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS1) + ", " + propertyDetailsPref.getStringPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ADDRESS2) + "\n" +
-                                    "View property details: https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
+//                                    "View property details: https://www.insideragentdeals.com/property" + "/" + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_SLUG) + "/" + propertyDetailsPref.getIntPref (PropertyDetailActivity.this, PropertyDetailsPref.PROPERTY_ID) + "\n\n" +
                                     "- " + buyerDetailsPref.getStringPref (PropertyDetailActivity.this, BuyerDetailsPref.INSIDER_NAME) + "");
                             startActivity (intent);
                         } catch (Exception e) {
