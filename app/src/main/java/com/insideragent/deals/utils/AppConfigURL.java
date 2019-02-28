@@ -7,7 +7,7 @@ public class AppConfigURL {
 
 //    public static String PLACE_OFFER_URL = "http://34.210.168.225/co/buyers/app_view_insider?property_id=";
     
-    public static String PLACE_OFFER_URL = "https://www.hometrustaustin.com/buyers/app_view_insider?property_id=";
+    public static String PLACE_OFFER_URL = "https://www.hometrustcolorado.com/buyers/app_view_insider?property_id=";
     
     
     public static String URL_SIGN_IN = BASE_URL + "csvbuyer/buyers/app_insider_login";

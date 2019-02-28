@@ -456,6 +456,7 @@ public class MainActivity extends AppCompatActivity {
                     params.put (AppConfigTags.TYPE, "property_list_insider");
                     params.put (AppConfigTags.DEVICE_TYPE, "ANDROID");
                     params.put (AppConfigTags.INSIDER_ID, String.valueOf (buyerDetailsPref.getIntPref (MainActivity.this, BuyerDetailsPref.INSIDER_ID)));
+                    params.put (AppConfigTags.LOGIN_TYPE, buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.LOGIN_TYPE));
     
                     Utils.showLog (Log.INFO, AppConfigTags.PARAMETERS_SENT_TO_THE_SERVER, "" + params, true);
                     return params;
