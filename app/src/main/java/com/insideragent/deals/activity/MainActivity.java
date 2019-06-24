@@ -367,7 +367,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     
-    
     private void getAllProperties () {
         if (NetworkConnection.isNetworkAvailable (MainActivity.this)) {
             Utils.showLog (Log.INFO, "" + AppConfigTags.URL, AppConfigURL.URL_PROPERTY_LIST, true);
@@ -875,7 +874,6 @@ public class MainActivity extends AppCompatActivity {
         result = drawerBuilder.build ();
     }
     
-    
     private void showLogOutDialog () {
         MaterialDialog dialog = new MaterialDialog.Builder (this)
                 .limitIconToDefaultSize ()
@@ -1090,7 +1088,5 @@ public class MainActivity extends AppCompatActivity {
         }
         
     }
-    
-    
 }
 
