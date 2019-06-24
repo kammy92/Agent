@@ -75,8 +75,10 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.holder.ImageHolder;
 import com.mikepenz.materialdrawer.holder.StringHolder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
@@ -853,7 +855,11 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem ().withName ("Share This App").withIcon (FontAwesome.Icon.faw_share).withIdentifier (2).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Contact Us (Home Trust)").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (17).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Contact Your Buyer").withIcon (FontAwesome.Icon.faw_key).withIdentifier (14).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
+                        new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new DividerDrawerItem (),
+                        new SecondaryDrawerItem ().withName ("Buyer Credentials").withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new SecondaryDrawerItem ().withName ("User name : " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_NAME)).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new SecondaryDrawerItem ().withName ("Password : " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_PASSWORD)).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
                 );
                 break;
     
@@ -864,7 +870,11 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem ().withName ("Contact Me").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (6).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("Call Me").withIcon (FontAwesome.Icon.faw_phone).withIdentifier (16).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
                         new PrimaryDrawerItem ().withName ("FAQ").withIcon (FontAwesome.Icon.faw_question).withIdentifier (7).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
-                        new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
+                        new PrimaryDrawerItem ().withName ("Sign Out").withIcon (FontAwesome.Icon.faw_sign_out).withIdentifier (10).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new DividerDrawerItem (),
+                        new SecondaryDrawerItem ().withName ("Credentials").withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new SecondaryDrawerItem ().withName ("User name : " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_NAME)).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this)),
+                        new SecondaryDrawerItem ().withName ("Password : " + buyerDetailsPref.getStringPref (MainActivity.this, BuyerDetailsPref.INSIDER_PASSWORD)).withSelectable (false).withTypeface (SetTypeFace.getTypeface (MainActivity.this))
                 );
         
                 break;

@@ -23,6 +23,8 @@ public class AppConfigURL {
     public static String URL_SCHEDULE_APPOINTMENT = BASE_URL + "api_insider/index_insider.php";
     public static String URL_INIT = BASE_URL + "api_insider/index_insider.php";
     
+    public static String URL_FORGOT_PASSWORD = BASE_URL + "api_insider/index_insider.php";
+    
     
     public static String URL_PROPERTY_OFFER_BID = BASE_URL + "api/";
    // public static String URL_INIT = BASE_URL + "api/";
